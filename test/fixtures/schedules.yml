@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyText
+  x0401: 1
+  user_id: 1
+  variety_id: 1
+
+two:
+  name: MyText
+  x0401: 1
+  user_id: 1
+  variety_id: 1
