@@ -22,6 +22,8 @@ class SchedulesController < ApplicationController
   # POST /schedules or /schedules.json
   def create
     @schedule = Schedule.new(schedule_params)
+    @schedule.user = current_user
+    @schedule.prefecture_id = current_user.prefecture_id
 
     respond_to do |format|
       if @schedule.save
@@ -65,6 +67,6 @@ class SchedulesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def schedule_params
-      params.require(:schedule).permit(:name, :x0401, :user_id, :variety_id)
+      params.require(:schedule).permit(:name, :prefecture_id, :user_id, :variety_id)
     end
 end

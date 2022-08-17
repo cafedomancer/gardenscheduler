@@ -16,6 +16,10 @@
     <%= render "layouts/navibar" %>
     <div class="container-fluid">
       <%= yield %>
+      <hr>
+      <% if user_signed_in? %>
+      <%= current_user.inspect %>
+      <% end %>
     </div>
   </body>
 </html>

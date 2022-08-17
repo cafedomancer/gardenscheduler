@@ -5,6 +5,12 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable, :trackable,
          :omniauthable, omniauth_providers: %i[line] # for LINE LOGIN
 
+  has_many :varieties
+  has_many :schedules, dependent: :destroy
+  has_many :tasks, dependent: :destroy
+  extend ActiveHash::Associations::ActiveRecordExtensions
+  belongs_to_active_hash :prefecture
+
   def social_profile(provider)
     social_profiles.select { |sp| sp.provider == provider.to_s }.first
   end
@@ -24,6 +30,19 @@ class User < ApplicationRecord
   def set_values_by_raw_info(raw_info)
     self.raw_info = raw_info.to_json
     self.save!
+  end
+
+  def update_without_current_password(params, *options)
+    params.delete(:current_password)
+
+    if params[:password].blank? && params[:password_confirmation].blank?
+      params.delete(:password)
+      params.delete(:password_confirmation)
+    end
+
+    result = update_attributes(params, *options)
+    clean_up_passwords
+    result
   end
 
 end

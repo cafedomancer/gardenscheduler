@@ -1,129 +1,29 @@
 <h2>top/index</h2>
-<% if user_signed_in? %>
-<%= current_user.inspect %>
-<% end %>
 
-<hr>
-<h3></h3>
-<a href='https://github.com/NorifumiOgawa/gardenscheduler/issues/16#issuecomment-1193232453'>Github</a>
-<table role="table">
-<thead>
-<tr>
-<th>Method</th>
-<th>Path</th>
-<th>Discription</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>GET</td>
-<td><a href='/'>/</a></td>
-<td>トップ（登録済みスケジュールの一覧表示をおこなうので、パラメータに品種<code class="notranslate">variety</code>、エリア<code class="notranslate">area</code>、自分のスケジュール絞り込み<code class="notranslate">my</code>等を持たせる）</td>
-</tr>
-<tr>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-</tr>
-<tr>
-<td>GET</td>
-<td><a href='/schedules/1'>/schedules/:id</a></td>
-<td>スケジュール詳細(show)(＋紐づく作業記録表示）</td>
-</tr>
-<tr>
-<td>GET</td>
-<td><a href='/schedules/new'>/schedules/new</a></td>
-<td>スケジュールの新規作成(new)</td>
-</tr>
-<tr>
-<td>GET</td>
-<td><a href='/schedules/1/edit'>/schedules/:id/edit</a></td>
-<td>スケジュール編集(edit)</td>
-</tr>
-<tr>
-<td>POST</td>
-<td>/schedules</td>
-<td>スケジュールの登録(create)</td>
-</tr>
-<tr>
-<td>PUT</td>
-<td>/schedules/:id</td>
-<td>スケジュールの更新(update)</td>
-</tr>
-<tr>
-<td>DELETE</td>
-<td>/schedules/:id</td>
-<td>スケジュールの削除(destroy)</td>
-</tr>
-<tr>
-<td>GET</td>
-<td><a href='/schedules'>/schedules</a></td>
-<td>みんなのスケジュール</td>
-</tr>
-<tr>
-<td>GET</td>
-<td>/users/:user_id/schedules/</td>
-<td>ユーザー指定スケジュール一覧</td>
-</tr>
-<tr>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-</tr>
-<tr>
-<td>GET</td>
-<td>/tasks/</td>
-<td>自分の作業予定（スケジュールをまたがった予定作業一覧表示）</td>
-</tr>
-<tr>
-<td>GET</td>
-<td>/tasks/:id/edit</td>
-<td>作業記録編集(edit)（=作業記録画面）</td>
-</tr>
-<tr>
-<td>PUT</td>
-<td>/tasks/:id</td>
-<td>作業記録の更新(update)</td>
-</tr>
-<tr>
-<td>DELETE</td>
-<td>/tasks/:id</td>
-<td>作業記録の削除(destroy)</td>
-</tr>
-<tr>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-</tr>
-<tr>
-<td>GET</td>
-<td>/users/sign_in</td>
-<td>LINEアカウント連携、ログイン(new)</td>
-</tr>
-<tr>
-<td>DELETE</td>
-<td>/users/sign_out</td>
-<td>ログアウト(destroy)</td>
-</tr>
-<tr>
-<td>GET</td>
-<td>/users/:id</td>
-<td>ユーザー詳細、ユーザーのスケジュール一覧(show)</td>
-</tr>
-<tr>
-<td>GET</td>
-<td>/users/edit</td>
-<td>ユーザー情報編集(edit)（＋通知時間帯設定）（=プロフィール設定）</td>
-</tr>
-<tr>
-<td>PUT</td>
-<td>/users/:id</td>
-<td>ユーザー情報の更新(update)</td>
-</tr>
-<tr>
-<td>DELETE</td>
-<td>/users/:id</td>
-<td>ユーザー情報の削除(destroy)</td>
-</tr>
-</tbody>
+<h1><%= Schedule.model_name.human %></h1>
+
+<table>
+  <thead>
+    <tr>
+      <th><%= Schedule.human_attribute_name(:name) %></th>
+      <th><%= Schedule.human_attribute_name(:prefecture_id) %></th>
+      <th><%= Schedule.human_attribute_name(:user_id) %></th>
+      <th><%= Schedule.human_attribute_name(:variety_id) %></th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @schedules.each do |schedule| %>
+      <tr>
+        <td><%= schedule.name %></td>
+        <td><%= schedule.prefecture.name %></td>
+        <td><%= schedule.user.name %></td>
+        <td><%= schedule.variety.name %></td>
+        <td><%= link_to 'Show', schedule %></td>
+        <td><%= link_to 'Edit', edit_schedule_path(schedule) %></td>
+        <td><%= link_to 'Destroy', schedule, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
 </table>

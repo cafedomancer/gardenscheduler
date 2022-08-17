@@ -17,7 +17,7 @@ class SchedulesTest < ApplicationSystemTestCase
     fill_in "Name", with: @schedule.name
     fill_in "User", with: @schedule.user_id
     fill_in "Variety", with: @schedule.variety_id
-    fill_in "X0401", with: @schedule.x0401
+    fill_in "prefecture_id", with: @schedule.prefecture_id
     click_on "Create Schedule"
 
     assert_text "Schedule was successfully created"
@@ -31,7 +31,7 @@ class SchedulesTest < ApplicationSystemTestCase
     fill_in "Name", with: @schedule.name
     fill_in "User", with: @schedule.user_id
     fill_in "Variety", with: @schedule.variety_id
-    fill_in "X0401", with: @schedule.x0401
+    fill_in "prefecture_id", with: @schedule.prefecture_id
     click_on "Update Schedule"
 
     assert_text "Schedule was successfully updated"

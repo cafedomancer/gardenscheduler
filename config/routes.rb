@@ -3,7 +3,8 @@ Rails.application.routes.draw do
   ActiveAdmin.routes(self)
   resources :schedules
   devise_for :users, controllers: {
-    omniauth_callbacks: "omniauth_callbacks"
+    omniauth_callbacks: "omniauth_callbacks",
+    registrations: 'users/registrations'
   }
   root to: 'top#index'
 end

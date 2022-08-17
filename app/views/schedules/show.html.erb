@@ -1,23 +1,23 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Name:</strong>
+  <strong><%= Schedule.human_attribute_name(:name) %>:</strong>
   <%= @schedule.name %>
 </p>
 
 <p>
-  <strong>X0401:</strong>
-  <%= @schedule.x0401 %>
+  <strong><%= Schedule.human_attribute_name(:prefecture_id) %>:</strong>
+  <%= @schedule.prefecture.name %>
 </p>
 
 <p>
-  <strong>User:</strong>
-  <%= @schedule.user_id %>
+  <strong><%= Schedule.human_attribute_name(:user_id) %>:</strong>
+  <%= @schedule.user.name %>
 </p>
 
 <p>
-  <strong>Variety:</strong>
-  <%= @schedule.variety_id %>
+  <strong><%= Schedule.human_attribute_name(:variety_id) %>:</strong>
+  <%= @schedule.variety.name %>
 </p>
 
 <%= link_to 'Edit', edit_schedule_path(@schedule) %> |
