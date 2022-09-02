@@ -339,6 +339,7 @@ DEPENDENCIES
   devise
   dotenv-rails
   jbuilder (~> 2.7)
+  kaminari
   listen (~> 3.3)
   net-imap
   net-pop

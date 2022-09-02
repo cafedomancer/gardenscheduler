@@ -4,7 +4,7 @@ class TopController < ApplicationController
     @prefecture_selected = ''
     @only_mine = false
 
-    @schedules = Schedule.all
+    @schedules = Schedule.all.page(params[:page]).order('created_at DESC')
     if params[:variety_id].present?
       @schedules = @schedules.where(variety_id: params[:variety_id])
       @variety_selected = params[:variety_id]

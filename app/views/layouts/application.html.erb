@@ -13,13 +13,14 @@
   </head>
 
   <body>
-    <%= render "layouts/navibar" %>
     <div class="container-fluid">
-      <%= yield %>
-      <hr>
-      <% if user_signed_in? %>
-      <%= current_user.inspect %>
-      <% end %>
+      <div class="row">
+        <div class="col-12 col-md-8 col-xl-6 mx-auto">
+          <%= render "layouts/navibar" %>
+          <%= yield %>
+        </div>
+      </div>
     </div>
-  </body>
+    <hr>
+</body>
 </html>

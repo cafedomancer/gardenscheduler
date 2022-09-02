@@ -29,6 +29,7 @@ gem 'dotenv-rails'
 gem 'activeadmin'
 gem 'rails-i18n'
 gem 'active_hash'
+gem 'kaminari'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

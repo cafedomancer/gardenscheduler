@@ -1,37 +1,35 @@
-<div class="d-grid gap-2 col-6 mx-auto">
+<div class="d-grid gap-2 col-6 mx-auto mb-3">
   <%= link_to '栽培スケジュールを作る', new_schedule_path, class:'btn btn-primary' %>
 </div>
 
 <h2>みんなの栽培スケジュール</h2>
 
-<%= form_tag root_path, method: :get do %>
-  <%= select_tag :variety_id, options_for_select(variety_choices, @variety_selected),include_blank: true, id: 'variety_select', onchange: "this.form.submit()" %>
-  <%= select_tag :prefecture_id, options_for_select(prefecture_choices, @prefecture_selected),include_blank: true, id: 'prefecture_select', onchange: "this.form.submit()" %>
-  <%= check_box_tag 'only_mine', @only_mine %> 自分のスケジュールのみ
+<div class='mb-3'>
+  <%= form_tag root_path, method: :get do %>
+    <%= select_tag :variety_id, options_for_select(variety_choices, @variety_selected),include_blank: true, id: 'variety_select', onchange: "this.form.submit()" %>
+    <%= select_tag :prefecture_id, options_for_select(prefecture_choices, @prefecture_selected),include_blank: true, id: 'prefecture_select', onchange: "this.form.submit()" %>
+    <%= check_box_tag 'only_mine', @only_mine %> 自分のスケジュールのみ
+  <% end %>
+</div>
+
+<div class="row row-cols-1 row-cols-md-2 g-4">
+  <% @schedules.each do |schedule| %>
+  <div class="col">
+    <div class="card">
+      <div class="card-body">
+        <div class="small text-muted">
+          <%= l schedule.updated_at.to_date, format: :default %>
+          (<%= schedule.user.name %><% if schedule.prefecture.present? %>@<%= schedule.prefecture&.name %><% end %>)
+        </div>
+        <h2 class="card-title"><%= schedule.name %></h2>
+        <p class="card-text"><%= schedule.variety.name %></p>
+        <%= link_to 'Read more →', schedule_path(schedule), class: "btn btn-primary" %>
+      </div>
+    </div>
+  </div>
   <% end %>
 
-<table>
-  <thead>
-    <tr>
-      <th><%= Schedule.human_attribute_name(:name) %></th>
-      <th><%= Schedule.human_attribute_name(:prefecture_id) %></th>
-      <th><%= Schedule.human_attribute_name(:user_id) %></th>
-      <th><%= Schedule.human_attribute_name(:variety_id) %></th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+  <%= paginate @schedules %>
 
-  <tbody>
-    <% @schedules.each do |schedule| %>
-      <tr>
-        <td><%= schedule.name %></td>
-        <td><%= schedule.prefecture&.name %></td>
-        <td><%= schedule.user.name %></td>
-        <td><%= schedule.variety.name %></td>
-        <td><%= link_to 'Show', schedule %></td>
-        <td><%= link_to 'Edit', edit_schedule_path(schedule) %></td>
-        <td><%= link_to 'Destroy', schedule, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+</div>
+

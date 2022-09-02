@@ -1,41 +1,24 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="/">Garden Scheduler</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="/">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="/schedules/new">スケジュール登録</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href='https://bootcamp.fjord.jp/products/13043'>ペーパープロト</a>
-        </li>
+<div class="container">
+<header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+  <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
+    <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
+    <span class="fs-4">Garden Scheduler</span>
+  </a>
 
-        <% if user_signed_in? %>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Dropdown
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="/users/edit">アカウント設定</a></li>
-          </ul>
-        </li>
-        <% end %>
-
-        <li class="nav-item">
-          <% if user_signed_in? %>
-            <%= link_to "Sign out", destroy_user_session_path, method: "delete", class: 'nav-link' %>
-          <% else %>
-            <%= link_to "Sign in", new_user_session_path, class: 'nav-link' %>
-          <% end %>
-        </li>
-
-      </ul>
-    </div>
-  </div>
-</nav>
+  <ul class="nav nav-pills">
+    <li class="nav-item"><a href="/" class="nav-link active">ホーム</a></li>
+    <li class="nav-item"><a href="/schedules/new" class="nav-link">スケジュール登録</a></li>
+    <% if user_signed_in? %>
+      <li class="nav-item"><a href="/users/edit" class="nav-link">アカウント設定</a></li>
+    <% end %>
+    <li class="nav-item">
+      <% if user_signed_in? %>
+        <%= link_to "Sign out", destroy_user_session_path, method: "delete", class: 'nav-link' %>
+      <% else %>
+        <%= link_to "Sign in", new_user_session_path, class: 'nav-link' %>
+      <% end %>
+    </li>
+    <li><a href='https://bootcamp.fjord.jp/products/13043' class="nav-link">pp</a></li>
+    </ul>
+</header>
+</div>
