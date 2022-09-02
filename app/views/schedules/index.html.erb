@@ -17,7 +17,7 @@
     <% @schedules.each do |schedule| %>
       <tr>
         <td><%= schedule.name %></td>
-        <td><%= schedule.prefecture.name %></td>
+        <td><%= schedule.prefecture&.name %></td>
         <td><%= schedule.user.name %></td>
         <td><%= schedule.variety.name %></td>
         <td><%= link_to 'Show', schedule %></td>

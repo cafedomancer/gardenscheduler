@@ -16,17 +16,16 @@
           <a class="nav-link" href='https://bootcamp.fjord.jp/products/13043'>ペーパープロト</a>
         </li>
 
+        <% if user_signed_in? %>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Dropdown
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="#">aaa</a></li>
-            <li><a class="dropdown-item" href="#">bbb</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">ccc</a></li>
+            <li><a class="dropdown-item" href="/users/edit">アカウント設定</a></li>
           </ul>
         </li>
+        <% end %>
 
         <li class="nav-item">
           <% if user_signed_in? %>

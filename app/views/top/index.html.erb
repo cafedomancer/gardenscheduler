@@ -1,6 +1,14 @@
-<h2>top/index</h2>
+<div class="d-grid gap-2 col-6 mx-auto">
+  <%= link_to '栽培スケジュールを作る', new_schedule_path, class:'btn btn-primary' %>
+</div>
 
-<h1><%= Schedule.model_name.human %></h1>
+<h2>みんなの栽培スケジュール</h2>
+
+<%= form_tag root_path, method: :get do %>
+  <%= select_tag :variety_id, options_for_select(variety_choices, @variety_selected),include_blank: true, id: 'variety_select', onchange: "this.form.submit()" %>
+  <%= select_tag :prefecture_id, options_for_select(prefecture_choices, @prefecture_selected),include_blank: true, id: 'prefecture_select', onchange: "this.form.submit()" %>
+  <%= check_box_tag 'only_mine', @only_mine %> 自分のスケジュールのみ
+  <% end %>
 
 <table>
   <thead>
@@ -17,7 +25,7 @@
     <% @schedules.each do |schedule| %>
       <tr>
         <td><%= schedule.name %></td>
-        <td><%= schedule.prefecture.name %></td>
+        <td><%= schedule.prefecture&.name %></td>
         <td><%= schedule.user.name %></td>
         <td><%= schedule.variety.name %></td>
         <td><%= link_to 'Show', schedule %></td>

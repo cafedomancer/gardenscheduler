@@ -7,7 +7,7 @@
 
 <p>
   <strong><%= Schedule.human_attribute_name(:prefecture_id) %>:</strong>
-  <%= @schedule.prefecture.name %>
+  <%= @schedule.prefecture&.name %>
 </p>
 
 <p>
@@ -19,6 +19,12 @@
   <strong><%= Schedule.human_attribute_name(:variety_id) %>:</strong>
   <%= @schedule.variety.name %>
 </p>
+
+<p>
+  <strong>@Schedule:</strong>
+  <%= @schedule.inspect %>
+</p>
+
 
 <%= link_to 'Edit', edit_schedule_path(@schedule) %> |
 <%= link_to 'Back', schedules_path %>
