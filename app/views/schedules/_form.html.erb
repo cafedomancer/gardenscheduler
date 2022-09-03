@@ -1,3 +1,5 @@
+<%= javascript_pack_tag 'schedules.js' %>
+
 <%= form_with(model: schedule) do |form| %>
   <% if schedule.errors.any? %>
     <div id="error_explanation">
@@ -21,11 +23,10 @@
     <%= form.collection_select :variety_id, Variety.all, :id, :name, options = { include_blank: true } %>
   </div>
 
-  <%= javascript_pack_tag 'schedules.js' %>
   <div id='vue-app'></div>
-
 
   <div class="actions">
     <%= form.submit %>
   </div>
 <% end %>
+

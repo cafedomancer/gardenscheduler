@@ -23,7 +23,7 @@ class SchedulesController < ApplicationController
   def create
     @schedule = Schedule.new(schedule_params)
     @schedule.user = current_user
-    @schedule.prefecture = current_user.prefecture
+    @schedule.prefecture = current_user&.prefecture
 
     respond_to do |format|
       if @schedule.save
