@@ -21,7 +21,7 @@
 </p>
 
 <% @schedule.tasks.each do | task | %>
-  <p><%= task.id %> | <%= task.name %> | <%= task.date %> | <%= task.plan_memo %></p>
+  <p>id: <%= link_to task.id, edit_task_path(task) %> | name: <%= task.name %> | date: <%= task.date %> | plan_memo: <%= task.plan_memo %> | done_memo: <%= task.done_memo %> | done_at: <%= task.done_at %></p>
 <% end %>
 
 <%= link_to 'Edit', edit_schedule_path(@schedule) %> |
