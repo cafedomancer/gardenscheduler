@@ -1,13 +1,13 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong><%= Schedule.human_attribute_name(:name) %>:</strong>
-  <%= @schedule.name %>
+  <strong><%= Schedule.human_attribute_name(:variety_id) %>:</strong>
+  <%= @schedule.variety.name %>
 </p>
 
 <p>
-  <strong><%= Schedule.human_attribute_name(:prefecture_id) %>:</strong>
-  <%= @schedule.prefecture&.name %>
+  <strong><%= Schedule.human_attribute_name(:name) %>:</strong>
+  <%= @schedule.name %>
 </p>
 
 <p>
@@ -16,8 +16,8 @@
 </p>
 
 <p>
-  <strong><%= Schedule.human_attribute_name(:variety_id) %>:</strong>
-  <%= @schedule.variety.name %>
+  <strong><%= Schedule.human_attribute_name(:prefecture_id) %>:</strong>
+  <%= @schedule.prefecture&.name %>
 </p>
 
 <% @schedule.tasks.each do | task | %>

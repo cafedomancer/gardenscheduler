@@ -1,13 +1,20 @@
-    <div class="nested-fields">
-      <%= f.hidden_field :user_id %>
-      <%= f.label :date, class: 'form-label' %>
+<div class="nested-fields">
+  <%= f.hidden_field :user_id %>
+  <div class='row mb-3'>
+    <div class='col-3'>
       <%= f.date_field :date, { class: 'form-control', required: true} %>
-      <%= f.label :name, class: 'form-label' %>
-      <%= f.select :name, TASK_NAME,
-            { include_blank: '選択してください'}, { class: 'form-control' , required: true } %>
-      <%= f.label :plan_memo, class: 'form-label' %>
-      <%= f.text_field :plan_memo, class: 'form-control' %>
-      <div class="form-group">
-      <%= link_to_remove_association "削除", f, class: 'btn btn-secondary btn-sm' %>
-      </div>
     </div>
+    <div class='col-3'>
+      <%= f.select :name, TASK_NAME,
+            { include_blank: '作業項目'}, { class: 'form-select' , required: true } %>
+    </div>
+    <div class='col-5'>
+      <%= f.text_field :plan_memo, class: 'form-control', placeholder: 'メモ' %>
+    </div>
+    <div class='col-1 pt-2'>
+      <%= link_to_remove_association f, class: '' do %>
+        <i class="fa-solid fa-trash"></i>
+      <% end %>
+    </div>
+  </div>
+</div>

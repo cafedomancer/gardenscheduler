@@ -1,7 +1,4 @@
 <%= javascript_pack_tag 'schedules.js' %>
-
-
-
 <%= form_with(model: @schedule, local: true) do |form| %>
   <div class="schedule_form">
     <% if schedule.errors.any? %>
@@ -16,30 +13,47 @@
       </div>
     <% end %>
 
-    <div class="field">
-      <%= form.label Schedule.human_attribute_name(:name), class: 'form-label' %>
-      <%= form.text_field :name, class: 'form-control', required: true %>
+    <div class="field row">
+      <div class='col-6'>
+        <%= form.label Schedule.human_attribute_name(:variety_id), class: 'form-label' %>
+        <%= form.collection_select :variety_id, Variety.all, :id, :name, options = { include_blank: true }, class: 'form-select', required: true %>
+      </div>
+
+      <div class='col-6'>
+        <%= form.label Schedule.human_attribute_name(:name), class: 'form-label' %>
+        <%= form.text_field :name, class: 'form-control', required: true %>
+      </div>
     </div>
 
-    <div class="field">
-      <%= form.label Schedule.human_attribute_name(:variety_id), class: 'form-label' %>
-      <%= form.collection_select :variety_id, Variety.all, :id, :name, options = { include_blank: true }, class: 'form-control', required: true %>
-    </div>
-    <div class="links">
-      <%= link_to_add_association "TASKを追加", form, :tasks, class: 'btn btn-secondary btn-sm',
-      wrap_object: Proc.new {|task| task.user_id = current_user.id; task } %>
+    <div class="links row">
+      <div class='col'>
+        作業 <%= link_to_add_association form, :tasks, class: '', data: {association_insertion_node: '#task-association-insertion-point'},
+        wrap_object: Proc.new {|task| task.user_id = current_user.id; task } do %>
+          <i class="fa-regular fa-square-plus"></i>
+        <% end %>
+      </div>
     </div>
 
   </div>
 
-   <!--div id='vue-app'></div-->
+  <div class='row'>
+    <div class='col'>
+      <div id="task-association-insertion-point"></div>
+    </div>
+  </div>
 
-  <%= form.fields_for :tasks do |task| %>
-    <%= render "task_fields", f: task %>
-  <% end %>
+  <div class='row'>
+    <div class='col'>
+      <%= form.fields_for :tasks do |task| %>
+        <%= render "task_fields", f: task %>
+      <% end %>
+    </div>
+  </div>
 
-  <div class="actions">
-    <%= form.submit '登録する', class: 'btn btn-primary' %>
+  <div class="actions row mt-3">
+    <div class='col'>
+      <%= form.submit '登録する', class: 'btn btn-primary' %>
+    </div>
   </div>
 
 <% end %>
