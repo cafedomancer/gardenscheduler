@@ -18,12 +18,12 @@
 
     <div class="field">
       <%= form.label Schedule.human_attribute_name(:name), class: 'form-label' %>
-      <%= form.text_field :name, class: 'form-control' %>
+      <%= form.text_field :name, class: 'form-control', required: true %>
     </div>
 
     <div class="field">
       <%= form.label Schedule.human_attribute_name(:variety_id), class: 'form-label' %>
-      <%= form.collection_select :variety_id, Variety.all, :id, :name, options = { include_blank: true }, class: 'form-control' %>
+      <%= form.collection_select :variety_id, Variety.all, :id, :name, options = { include_blank: true }, class: 'form-control', required: true %>
     </div>
     <div class="links">
       <%= link_to_add_association "TASKを追加", form, :tasks, class: 'btn btn-secondary btn-sm',
