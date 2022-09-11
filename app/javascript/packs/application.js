@@ -13,6 +13,8 @@ window.$ = window.jQuery = jquery
 import * as bootstrap from "bootstrap"
 window.bootstrap = bootstrap
 import "../stylesheets/application"
+import '@fortawesome/fontawesome-free/js/all'
+import "@nathanvda/cocoon"
 
 Rails.start()
 Turbolinks.start()

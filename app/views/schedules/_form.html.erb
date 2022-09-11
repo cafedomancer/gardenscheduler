@@ -1,32 +1,46 @@
 <%= javascript_pack_tag 'schedules.js' %>
 
-<%= form_with(model: schedule) do |form| %>
-  <% if schedule.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(schedule.errors.count, "error") %> prohibited this schedule from being saved:</h2>
 
-      <ul>
-        <% schedule.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
+
+<%= form_with(model: @schedule, local: true) do |form| %>
+  <div class="schedule_form">
+    <% if schedule.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(schedule.errors.count, "error") %> prohibited this schedule from being saved:</h2>
+
+        <ul>
+          <% schedule.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="field">
+      <%= form.label Schedule.human_attribute_name(:name), class: 'form-label' %>
+      <%= form.text_field :name, class: 'form-control' %>
     </div>
+
+    <div class="field">
+      <%= form.label Schedule.human_attribute_name(:variety_id), class: 'form-label' %>
+      <%= form.collection_select :variety_id, Variety.all, :id, :name, options = { include_blank: true }, class: 'form-control' %>
+    </div>
+    <div class="links">
+      <%= link_to_add_association "TASKを追加", form, :tasks, class: 'btn btn-secondary btn-sm',
+      wrap_object: Proc.new {|task| task.user_id = current_user.id; task } %>
+    </div>
+
+  </div>
+
+   <!--div id='vue-app'></div-->
+
+  <%= form.fields_for :tasks do |task| %>
+    <%= render "task_fields", f: task %>
   <% end %>
 
-  <div class="field">
-    <%= form.label Schedule.human_attribute_name(:name) %>
-    <%= form.text_field :name %>
-  </div>
-
-  <div class="field">
-    <%= form.label Schedule.human_attribute_name(:variety_id) %>
-    <%= form.collection_select :variety_id, Variety.all, :id, :name, options = { include_blank: true } %>
-  </div>
-
-  <div id='vue-app'></div>
-
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit '登録する', class: 'btn btn-primary' %>
   </div>
+
 <% end %>
 
