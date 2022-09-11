@@ -68,6 +68,6 @@ class SchedulesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def schedule_params
-      params.require(:schedule).permit(:name, :prefecture_id, :user_id, :variety_id, tasks_attributes: %I(date name plan_memo user_id)).merge(user_id: current_user.id)
+      params.require(:schedule).permit(:name, :prefecture_id, :user_id, :variety_id, tasks_attributes: %I(id date name plan_memo user_id _destroy)).merge(user_id: current_user.id)
     end
 end

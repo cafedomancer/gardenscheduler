@@ -5,7 +5,7 @@
 
       <%= f.label :name, class: 'form-label' %>
       <%= f.select :name,
-            [['土作り', 0], ['元肥', 1], ['追肥', 2], ['剪定', 3]],
+            TASK_NAME,
             { include_blank: '選択してください'}, { class: 'form-control' , required: true } %>
 
       <%= f.label :plan_memo, class: 'form-label' %>
