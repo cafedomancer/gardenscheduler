@@ -1,6 +1,12 @@
 @import "~bootstrap/scss/bootstrap";
 @import '~@fortawesome/fontawesome-free/scss/fontawesome';
 
+body, p, ol, ul, td {
+  font-family: verdana, arial, helvetica, sans-serif;
+  font-size: 18px;
+  line-height: 18px;
+}
+
 // Devise用
 .container-login {
   @extend .container-fluid;
@@ -16,10 +22,15 @@
   @extend .alert-danger;
 }
 
-.card {
-    transition:background-color 0.3s;
+.card-link {
+  transition:background-color 0.3s;
 }
  
-.card:hover {
-    background-color:#cce9ff;
+.card-link:hover {
+  background-color:#cce9ff;
+}
+
+.logo-mark {
+  margin-right: 10px;
+  color: #4F7302;
 }

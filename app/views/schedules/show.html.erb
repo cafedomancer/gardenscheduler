@@ -1,63 +1,41 @@
-<div class="row">
+<div class="row mb-3">
   <div class="col">
-    <% if current_user&.id == @schedule.user_id %>
-      <h2><%= @schedule.name %> / <%= @schedule.variety.name %>@<%= @schedule.prefecture&.name %></h2>
-    <% else %>
-      <h2><%= @schedule.variety.name %>@<%= @schedule.prefecture&.name %></h2>
-    <% end %>
-  </div>
-</div>
-
-<div class="row">
-  <div class="col">
-    by: <%= @schedule.user.name %> 
-  </div>
-</div>
-
-<% @tasks.each do | task | %>
-  <div class="row">
-    <div class="card-body">
-      <div class="card">
-        <div class="card-body">
-
-          <div class="row">
-            <div class="col-2">
-              <%= task.name %>
-            </div>
-            <div class="col-10">
-              予定日:
-              <% if current_user&.id == @schedule.user_id %>
-                <%= link_to task.date, edit_task_path(task) %>
-              <% else %>
-                <%= task.date %>
-              <% end %>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-2">
-            </div>
-            <div class="col-10">
-              メモ: <%= task.plan_memo %>
-            </div>
-          </div>
-          <hr>
-          <div class="row">
-            <div class="col-2">
-            </div>
-            <div class="col-10">
-              <p>作業日: <%= task.done_at %></p>
-              <p>作業メモ: <%= task.done_memo %></p>
-              <p>作業画像: </p>
-            </div>
-          </div>
-        </div>
+    <div class="card card-body text-dark text-decoration-none">
+      <h2 class="card-text"><%= "#{@schedule.variety.name}@#{@schedule.prefecture&.name}" %></h2>
+      <div class="small text-muted">
+        <%= l @schedule.updated_at.to_date, format: :default %>
+        (<%= @schedule.user.name %><% if @schedule.prefecture.present? %><% end %>)
       </div>
     </div>
   </div>
+</div>
 
+<div class="accordion mb-5">
+<% @tasks.each do | task | %>
+
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+        <%= "#{task.name} (#{task.date})" %>
+      </button>
+    </h2>
+    <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
+      <div class="accordion-body">
+        <p>メモ: <%= task.plan_memo %></p>
+        <p>作業日: <%= task.done_at %></p>
+        <p>作業メモ: <%= task.done_memo %></p>
+        <p>作業画像: </p>
+        <% if current_user&.id == @schedule.user_id %>
+          <%= link_to 'edit', edit_task_path(task) %>
+        <% end %>
+
+      </div>
+    </div>
+  </div>
 <% end %>
+</div>
 
-<%= link_to '戻る', schedules_path %>
+<%= link_to '戻る', root_path %>
 <% if user_signed_in? %>
  | <%= link_to '編集', edit_schedule_path(@schedule) %>
  | <%= link_to '削除', @schedule, method: :delete, data: { confirm: 'Are you sure?' } %>

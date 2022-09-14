@@ -1,5 +1,5 @@
 <div class="d-grid gap-2 col-6 mx-auto mb-3">
-  <%= link_to '栽培スケジュールを作る', new_schedule_path, class:'btn btn-success' %>
+  <%= link_to '栽培スケジュールを作る', new_schedule_path, class:'btn btn-success btn-lg' %>
 </div>
 
 <h2>みんなの栽培スケジュール</h2>
@@ -12,7 +12,7 @@
   <div class="col pb-2">
     <%= select_tag :prefecture_id, options_for_select(prefecture_choices, @prefecture_selected),include_blank: true, class: 'form-select', id: 'prefecture_select', onchange: "this.form.submit()" %>
   </div>
-  <div class="col pb-2">
+  <div class="col pb-2 d-flex align-items-center">
     <%= check_box_tag 'only_mine', @only_mine, class: "form-check-input" %> 自分のスケジュールのみ
   </div>
 </div>
@@ -20,18 +20,18 @@
 
 <div class="row row-cols-1 row-cols-md-2 g-4">
   <% @schedules.each do |schedule| %>
-  <div class="col">
-    <div class="card">
-      <%= link_to schedule, class: "card-body text-dark text-decoration-none" do %>
-        <h2 class="card-text"><%= "#{schedule.variety.name}@#{schedule.prefecture&.name}" %></h2>
-        <div class="small text-muted">
-          <p>作業: <%= schedule.tasks.count %>件</p>
-          <%= l schedule.updated_at.to_date, format: :default %>
-          (<%= schedule.user.name %><% if schedule.prefecture.present? %><% end %>)
-        </div>
+    <div class="col">
+      <div class="card card-link">
+        <%= link_to schedule, class: "card-body text-dark text-decoration-none" do %>
+          <h2 class="card-text"><%= "#{schedule.variety.name}@#{schedule.prefecture&.name}" %></h2>
+          <div class="small text-muted">
+            <p>作業: <%= schedule.tasks.count %>件</p>
+            <%= l schedule.updated_at.to_date, format: :default %>
+            (<%= schedule.user.name %><% if schedule.prefecture.present? %><% end %>)
+          </div>
+        <% end %>
       </div>
-    <% end %>
-  </div>
+    </div>
   <% end %>
 
   <%= paginate @schedules %>
