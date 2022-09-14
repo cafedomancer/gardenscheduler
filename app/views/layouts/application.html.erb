@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html class="h-100">
   <head>
     <title>App</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -8,19 +8,30 @@
 
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
-    <%#= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
     <%= stylesheet_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body>
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-12 col-md-8 col-xl-6 mx-auto">
-          <%= render "layouts/navibar" %>
-          <%= yield %>
+  <body class="d-flex flex-column h-100">
+
+    <main class="flex-shrink-0">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12 col-md-10 col-xl-8 mx-auto">
+            <%= render "layouts/navibar" %>
+            <%= render 'layouts/flash_message' %>
+            <%= yield %>
+          </div>
         </div>
       </div>
-    </div>
-    <hr>
-</body>
+    </main>
+
+    <footer class="footer mt-auto py-3 bg-light">
+      <div class="container">
+        <span class="text-muted">&copy; OGAWORKS <%= Date.today.year %></span> | 
+        <span class="text-muted"><a href='https://bootcamp.fjord.jp/products/13043'>ペーパープロト</a></span>
+      </div>
+    </footer>
+
+  </body>
+
 </html>

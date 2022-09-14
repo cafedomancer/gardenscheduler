@@ -25,8 +25,7 @@
     </div>
     <div class="field row">
       <div class='col'>
-        <%= form.label Task.human_attribute_name(:done_memo), class: 'form-label' %>
-        <%= form.text_area :done_memo, class: 'form-control' %>
+        <%= form.text_area :done_memo, class: 'form-control', placeholder: '作業メモ（公開されます）' %>
       </div>
     </div>
 

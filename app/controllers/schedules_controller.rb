@@ -1,5 +1,6 @@
 class SchedulesController < ApplicationController
   before_action :set_schedule, only: %i[ show edit update destroy ]
+  before_action :check_owner, only: %i[ edit update destroy ]
 
   # GET /schedules or /schedules.json
   def index
@@ -12,8 +13,10 @@ class SchedulesController < ApplicationController
 
   # GET /schedules/new
   def new
+    if !user_signed_in?
+      redirect_to new_user_session_path, notice: "ログインしてください。"
+    end
     @schedule = Schedule.new
-    #@tasks = @schedule.tasks.build(user_id: current_user.id)
   end
 
   # GET /schedules/1/edit
@@ -61,6 +64,13 @@ class SchedulesController < ApplicationController
   end
 
   private
+
+    def check_owner
+      if current_user.id != @schedule.user_id
+        redirect_to root_path, notice: "Permission denied."
+      end
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_schedule
       @schedule = Schedule.find(params[:id])

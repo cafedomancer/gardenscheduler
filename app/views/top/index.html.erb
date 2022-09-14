@@ -4,13 +4,19 @@
 
 <h2>みんなの栽培スケジュール</h2>
 
-<div class='mb-3'>
-  <%= form_tag root_path, method: :get do %>
-    <%= select_tag :variety_id, options_for_select(variety_choices, @variety_selected),include_blank: true, id: 'variety_select', onchange: "this.form.submit()" %>
-    <%= select_tag :prefecture_id, options_for_select(prefecture_choices, @prefecture_selected),include_blank: true, id: 'prefecture_select', onchange: "this.form.submit()" %>
-    <%= check_box_tag 'only_mine', @only_mine %> 自分のスケジュールのみ
-  <% end %>
+<%= form_tag root_path, method: :get do %>
+<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 mb-3">
+  <div class="col pb-2">
+    <%= select_tag :variety_id, options_for_select(variety_choices, @variety_selected),include_blank: true, class: 'form-select', id: 'variety_select', onchange: "this.form.submit()" %>
+  </div>
+  <div class="col pb-2">
+    <%= select_tag :prefecture_id, options_for_select(prefecture_choices, @prefecture_selected),include_blank: true, class: 'form-select', id: 'prefecture_select', onchange: "this.form.submit()" %>
+  </div>
+  <div class="col pb-2">
+    <%= check_box_tag 'only_mine', @only_mine, class: "form-check-input" %> 自分のスケジュールのみ
+  </div>
 </div>
+<% end %>
 
 <div class="row row-cols-1 row-cols-md-2 g-4">
   <% @schedules.each do |schedule| %>

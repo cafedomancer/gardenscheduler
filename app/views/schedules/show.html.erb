@@ -1,27 +1,60 @@
-<p id="notice"><%= notice %></p>
+<div class="row">
+  <div class="col">
+    <h2>スケジュール詳細</h2>
+  </div>
+</div>
 
-<p>
-  <strong><%= Schedule.human_attribute_name(:variety_id) %>:</strong>
-  <%= @schedule.variety.name %>
-</p>
+<div class="row">
+  <div class="col">
+    <h3>
+      <%= Schedule.human_attribute_name(:variety_id) %>: <%= @schedule.variety.name %>
+      <% if current_user&.id == @schedule.user_id %>
+        (<%= Schedule.human_attribute_name(:name) %>: <%= @schedule.name %>)
+      <% end %>
+    </h3>
 
-<p>
-  <strong><%= Schedule.human_attribute_name(:name) %>:</strong>
-  <%= @schedule.name %>
-</p>
-
-<p>
-  <strong><%= Schedule.human_attribute_name(:user_id) %>:</strong>
-  <%= @schedule.user.name %>
-</p>
-
-<p>
-  <strong><%= Schedule.human_attribute_name(:prefecture_id) %>:</strong>
-  <%= @schedule.prefecture&.name %>
-</p>
+    <p>
+      by: <%= @schedule.user.name %> @<%= @schedule.prefecture&.name %>
+    </p>
+  </div>
+</div>
 
 <% @schedule.tasks.each do | task | %>
-  <p>id: <%= link_to task.id, edit_task_path(task) %> | name: <%= task.name %> | date: <%= task.date %> | plan_memo: <%= task.plan_memo %> | done_memo: <%= task.done_memo %> | done_at: <%= task.done_at %></p>
+  <div class="row">
+    <div class="card-body">
+      <div class="card">
+        <div class="card-body">
+
+          <div class="row">
+            <div class="col-2">
+              <%= task.name %>
+            </div>
+            <div class="col-10">
+              作業予定: <%= link_to task.date, edit_task_path(task) %>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-2">
+            </div>
+            <div class="col-10">
+              作業内容: <%= task.plan_memo %>
+            </div>
+          </div>
+          <hr>
+          <div class="row">
+            <div class="col-2">
+            </div>
+            <div class="col-10">
+              <p>作業日: <%= task.done_at %></p>
+              <p>作業メモ: <%= task.done_memo %></p>
+              <p>作業画像: </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
 <% end %>
 
 <%= link_to 'Edit', edit_schedule_path(@schedule) %> |
