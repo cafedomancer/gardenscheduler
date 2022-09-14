@@ -1,5 +1,5 @@
 <div class="d-grid gap-2 col-6 mx-auto mb-3">
-  <%= link_to '栽培スケジュールを作る', new_schedule_path, class:'btn btn-primary' %>
+  <%= link_to '栽培スケジュールを作る', new_schedule_path, class:'btn btn-success' %>
 </div>
 
 <h2>みんなの栽培スケジュール</h2>
@@ -29,7 +29,7 @@
         </div>
         <h2 class="card-title"><%= schedule.name %></h2>
         <p class="card-text"><%= schedule.variety.name %></p>
-        <%= link_to 'Read more →', schedule_path(schedule), class: "btn btn-primary" %>
+        <%= link_to 'Read more →', schedule_path(schedule), class: "btn btn-success" %>
       </div>
     </div>
   </div>
