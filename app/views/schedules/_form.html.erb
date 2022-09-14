@@ -29,7 +29,7 @@
       <div class='col'>
         作業 <%= link_to_add_association form, :tasks, class: '', data: {association_insertion_node: '#task-association-insertion-point'},
         wrap_object: Proc.new {|task| task.user_id = current_user.id; task } do %>
-          <i class="fa-regular fa-square-plus"></i>
+          <i class="far fa-plus-square"></i>
         <% end %>
       </div>
     </div>
