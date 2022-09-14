@@ -66,7 +66,7 @@ class SchedulesController < ApplicationController
   private
 
     def check_owner
-      if current_user.id != @schedule.user_id
+      if !user_signed_in? || current_user.id != @schedule.user_id
         redirect_to root_path, notice: "Permission denied."
       end
     end
@@ -74,6 +74,7 @@ class SchedulesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_schedule
       @schedule = Schedule.find(params[:id])
+      @tasks = @schedule.tasks.order(date: :asc)
     end
 
     # Only allow a list of trusted parameters through.

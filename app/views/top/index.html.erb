@@ -22,16 +22,15 @@
   <% @schedules.each do |schedule| %>
   <div class="col">
     <div class="card">
-      <div class="card-body">
+      <%= link_to schedule, class: "card-body text-dark text-decoration-none" do %>
+        <h2 class="card-text"><%= "#{schedule.variety.name}@#{schedule.prefecture&.name}" %></h2>
         <div class="small text-muted">
+          <p>作業: <%= schedule.tasks.count %>件</p>
           <%= l schedule.updated_at.to_date, format: :default %>
-          (<%= schedule.user.name %><% if schedule.prefecture.present? %>@<%= schedule.prefecture&.name %><% end %>)
+          (<%= schedule.user.name %><% if schedule.prefecture.present? %><% end %>)
         </div>
-        <h2 class="card-title"><%= schedule.name %></h2>
-        <p class="card-text"><%= schedule.variety.name %></p>
-        <%= link_to 'Read more →', schedule_path(schedule), class: "btn btn-success" %>
       </div>
-    </div>
+    <% end %>
   </div>
   <% end %>
 
