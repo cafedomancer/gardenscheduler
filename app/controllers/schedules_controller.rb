@@ -17,6 +17,7 @@ class SchedulesController < ApplicationController
       redirect_to new_user_session_path, notice: "ログインしてください。"
     end
     @schedule = Schedule.new
+    @schedule.prefecture_id = current_user&.prefecture_id
   end
 
   # GET /schedules/1/edit
@@ -27,7 +28,6 @@ class SchedulesController < ApplicationController
   def create
     @schedule = Schedule.new(schedule_params)
     @schedule.user = current_user
-    @schedule.prefecture = current_user&.prefecture
 
     respond_to do |format|
       if @schedule.save

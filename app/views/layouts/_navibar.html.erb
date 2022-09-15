@@ -5,16 +5,21 @@
   </a>
 
   <ul class="nav nav-pills">
-    <li class="nav-item"><a href="/schedules/new" class="nav-link">スケジュール登録</a></li>
+    <li class="nav-item"><a href="/schedules/new" class="nav-link">スケジュール作成</a></li>
+
     <% if user_signed_in? %>
-      <li class="nav-item"><a href="/users/edit" class="nav-link">アカウント設定</a></li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          アカウント
+        </a>
+        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <li><a href="/users/edit", class="dropdown-item">設定</a></li>
+          <li><%= link_to "Sign out", destroy_user_session_path, method: "delete", class: "dropdown-item" %></li>
+        </ul>
+      </li>
+    <% else %>
+      <li class="nav-item"><%= link_to "Sign in", new_user_session_path, class: 'nav-link' %></li>
     <% end %>
-    <li class="nav-item">
-      <% if user_signed_in? %>
-        <%= link_to "Sign out", destroy_user_session_path, method: "delete", class: 'nav-link' %>
-      <% else %>
-        <%= link_to "Sign in", new_user_session_path, class: 'nav-link' %>
-      <% end %>
-    </li>
+
   </ul>
 </header>
