@@ -32,9 +32,9 @@
       </div>
     </div>
 
-    <div class="links row">
+    <div class="links row mb-3">
       <div class='col'>
-        作業 <%= link_to_add_association form, :tasks, class: '', data: {association_insertion_node: '#task-association-insertion-point'},
+        作業を追加 <%= link_to_add_association form, :tasks, class: '', data: {association_insertion_node: '#task-association-insertion-point'},
         wrap_object: Proc.new {|task| task.user_id = current_user.id; task } do %>
           <i class="far fa-plus-square"></i>
         <% end %>
@@ -59,7 +59,11 @@
 
   <div class="actions row mt-3">
     <div class='col'>
-      <%= form.submit '登録する', class: 'btn btn-success' %>
+      <% if action_name == 'new' %>
+        <%= form.submit t('helpers.submit.create'), class: 'btn btn-success' %>
+      <% else %>
+        <%= form.submit t('helpers.submit.update'), class: 'btn btn-success' %>
+      <% end %>
     </div>
   </div>
 

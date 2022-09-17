@@ -6,6 +6,11 @@
         <%= l @schedule.updated_at.to_date, format: :default %>
         (<%= @schedule.user.name %><% if @schedule.prefecture.present? %><% end %>)
       </div>
+      <div class='text-end'>
+        <%= link_to edit_schedule_path(@schedule), data: { confirm: 'コピーしますか?' } do %>
+         <i class="far fa-copy"></i> このスケジュールをコピーする
+        <% end %>
+      </div>
     </div>
   </div>
 </div>
@@ -48,5 +53,5 @@
 <%= link_to '戻る', root_path %>
 <% if user_signed_in? %>
  | <%= link_to '編集', edit_schedule_path(@schedule) %>
- | <%= link_to '削除', @schedule, method: :delete, data: { confirm: 'Are you sure?' } %>
+ | <%= link_to '削除', @schedule, method: :delete, data: { confirm: '本当に削除しますか?' } %>
 <% end %>

@@ -1,25 +1,31 @@
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
+<h2>アカウント設定</h2>
+
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+
   <%= render "devise/shared/error_messages", resource: resource %>
 
-  <div class="field">
-    <%= f.label :prefecture_id %><br />
-    <%= f.collection_select(:prefecture_id, Prefecture.all, :id, :name, {}, {class:"prefecture-select"}) %>
+<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 mb-3">
+  <div class="col pb-2">
+    <%= f.label :prefecture_id, class: 'form-label' %><br />
+    <%= f.collection_select(:prefecture_id, Prefecture.all, :id, :name, options = { include_blank: true }, {class:"form-select", required: true}) %>
   </div>
+</div>
 
-  <div class="field">
-    <%= f.label :notification_time %><br />
-    <%= f.text_field :notification_time %>
+<div class="row">
+  <div class="col">
+    <%= f.label :notification_time, class: 'form-label' %><br />
+    <%= f.time_select :notification_time, {:include_blank => true, :minute_step => 30}, class: 'form-select time_select_bootstrap'  %>
   </div>
+</div>
 
-  <div class="actions">
-    <%= f.submit "Update" %>
+<div class="actions row mt-3">
+  <div class="col">
+    <%= f.submit t('.update'), class: 'btn btn-success' %>
   </div>
+</div>
 <% end %>
 
-<h3>Cancel my account</h3>
+<h3><%= t('.cancel_my_account')%></h3>
 
-<p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>
-
-<%= link_to "Back", :back %>
+<p><%= t('.unhappy') %> <%= button_to t('.cancel_my_account'), registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete, class: 'btn btn-warning' %></p>

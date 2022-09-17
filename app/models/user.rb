@@ -10,6 +10,7 @@ class User < ApplicationRecord
   has_many :tasks, dependent: :destroy
   extend ActiveHash::Associations::ActiveRecordExtensions
   belongs_to_active_hash :prefecture
+  after_create :initialize_notification_time
 
   def social_profile(provider)
     social_profiles.select { |sp| sp.provider == provider.to_s }.first
@@ -43,6 +44,10 @@ class User < ApplicationRecord
     result = update_attributes(params, *options)
     clean_up_passwords
     result
+  end
+
+  def initialize_notification_time
+    self.update!(notification_time: '08:00:00')
   end
 
 end
