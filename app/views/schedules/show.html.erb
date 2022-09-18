@@ -7,8 +7,8 @@
         (<%= @schedule.user.name %><% if @schedule.prefecture.present? %><% end %>)
       </div>
       <div class='text-end'>
-        <%= link_to edit_schedule_path(@schedule), data: { confirm: 'コピーしますか?' } do %>
-         <i class="far fa-copy"></i> このスケジュールをコピーする
+        <%= link_to copy_schedule_path(@schedule) do %>
+         <i class="fas fa-code-branch"></i> このスケジュールを流用する
         <% end %>
       </div>
     </div>

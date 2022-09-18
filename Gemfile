@@ -32,6 +32,7 @@ gem 'rails-i18n'
 gem 'active_hash'
 gem 'kaminari'
 gem 'cocoon'
+gem 'deep_cloneable', '~> 3.2.0'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

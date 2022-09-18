@@ -59,7 +59,7 @@
 
   <div class="actions row mt-3">
     <div class='col'>
-      <% if action_name == 'new' %>
+      <% if action_name == 'new' || action_name == 'copy' %>
         <%= form.submit t('helpers.submit.create'), class: 'btn btn-success' %>
       <% else %>
         <%= form.submit t('helpers.submit.update'), class: 'btn btn-success' %>

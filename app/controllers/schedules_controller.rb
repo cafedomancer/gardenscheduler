@@ -20,6 +20,17 @@ class SchedulesController < ApplicationController
     @schedule.prefecture_id = current_user&.prefecture_id
   end
 
+  def copy
+    if !user_signed_in?
+      redirect_to new_user_session_path, notice: "ログインしてください。"
+    end
+    @original_schedule = Schedule.find(params[:id])
+    @schedule = @original_schedule.deep_clone(include: [:tasks])
+    @schedule.name = ''
+
+    render :new
+  end
+
   # GET /schedules/1/edit
   def edit
   end
