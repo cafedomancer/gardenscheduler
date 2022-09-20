@@ -33,6 +33,10 @@ gem 'active_hash'
 gem 'kaminari'
 gem 'cocoon'
 gem 'deep_cloneable', '~> 3.2.0'
+gem 'rubocop-fjord', git: 'https://github.com/fjordllc/rubocop-fjord', branch: 'master'
+gem 'rubocop-rails', require: false
+gem 'mini_magick', '~> 4.11'
+gem 'image_processing', '~> 1.2'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

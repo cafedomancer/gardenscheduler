@@ -25,6 +25,7 @@ ja:
         plan_memo: 予定メモ
         done_memo: 完了メモ
         done_at: 完了日
+        done_image1: 完了画像
       variety:
         name: 品種
   date:

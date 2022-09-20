@@ -27,6 +27,6 @@ class TasksController < ApplicationController
     end
 
     def task_params
-      params.require(:task).permit(:done_memo, :done_at)
+      params.require(:task).permit(:done_memo, :done_at, :done_image1)
     end
 end

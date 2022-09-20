@@ -40,7 +40,10 @@
           <p>作業メモ: <%= task.plan_memo %></p>
           <p>完了日: <%= task.done_at? ? task.done_at : '-' %></p>
           <p>完了メモ: <%= task.done_memo %></p>
-          <p>完了画像: </p>
+          <p>完了画像: 
+  <% if task.done_image1.attached? %><%= image_tag task.done_image1.variant(resize: '300x300').processed %><% end %>
+
+          </p>
           <div class='text-end'>
             <% if current_user&.id == @schedule.user_id %>
               <%= link_to edit_task_path(task) do %>
