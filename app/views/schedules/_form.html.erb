@@ -1,5 +1,6 @@
 <%= javascript_pack_tag 'schedules.js' %>
 <%= form_with(model: @schedule, local: true) do |form| %>
+  <%= form.hidden_field :schedule_id, value: @schedule.schedule_id %>
   <div class="schedule_form">
     <% if schedule.errors.any? %>
       <div id="error_explanation">

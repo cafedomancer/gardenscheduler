@@ -27,6 +27,7 @@ class SchedulesController < ApplicationController
     @original_schedule = Schedule.find(params[:id])
     @schedule = @original_schedule.deep_clone(include: [:tasks])
     @schedule.name = ''
+    @schedule.schedule_id = @original_schedule.id
 
     render :new
   end
@@ -90,6 +91,6 @@ class SchedulesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def schedule_params
-      params.require(:schedule).permit(:name, :prefecture_id, :user_id, :variety_id, tasks_attributes: %I(id date name plan_memo user_id _destroy)).merge(user_id: current_user.id)
+      params.require(:schedule).permit(:name, :prefecture_id, :user_id, :variety_id, :schedule_id, tasks_attributes: %I(id date name plan_memo user_id _destroy)).merge(user_id: current_user.id)
     end
 end

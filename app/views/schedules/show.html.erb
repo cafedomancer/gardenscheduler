@@ -8,7 +8,13 @@
       </div>
       <div class='text-end'>
         <%= link_to copy_schedule_path(@schedule) do %>
-         <i class="fas fa-code-branch"></i> このスケジュールを流用する
+         <i class="fas fa-code-branch"></i> このスケジュールをコピー
+        <% end %>
+        <% if @schedule.parent %>
+        (<%= link_to 'オリジナル', @schedule.parent %>)
+        <% end %>
+        <% if @schedule.children.size > 0 %>
+        (<%= @schedule.children.size %>)
         <% end %>
       </div>
     </div>
