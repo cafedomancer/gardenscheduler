@@ -6,21 +6,22 @@
   <%= link_to '栽培スケジュールを作る', new_schedule_path, class:'btn btn-success btn-lg' %>
 </div>
 
-<% if !user_signed_in? %>
-  <div class="row row-cols-1 row-cols-md-2 g-4 mb-3">
-    <% @schedules.each do |schedule| %>
-      <div class="col">
-        <div class="card card-link">
-          <%= link_to schedule, class: "card-body text-dark text-decoration-none" do %>
-            <h2 class="card-text"><%= "#{schedule.variety.name}@#{schedule.prefecture&.name}" %></h2>
-            <div class="small text-muted">
-              <p>作業: <%= schedule.tasks.count %>件</p>
-              <%= l schedule.updated_at.to_date, format: :default %>
-              (<%= schedule.user.name %><% if schedule.prefecture.present? %><% end %>)
-            </div>
-          <% end %>
-        </div>
-      </div>
-    <% end %>
-  </div>
+<% if user_signed_in? %>
+  <h2>MYスケジュール</h2>
 <% end %>
+<div class="row row-cols-1 row-cols-md-2 g-4 mb-3">
+  <% @schedules.each do |schedule| %>
+    <div class="col">
+      <div class="card card-link">
+        <%= link_to schedule, class: "card-body text-dark text-decoration-none" do %>
+          <h2 class="card-text"><%= "#{schedule.variety.name}@#{schedule.prefecture&.name}" %></h2>
+          <div class="small text-muted">
+            <p>作業: <%= schedule.tasks.count %>件</p>
+            <%= l schedule.updated_at.to_date, format: :default %>
+            (<%= schedule.user.name %><% if schedule.prefecture.present? %><% end %>)
+          </div>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+</div>
