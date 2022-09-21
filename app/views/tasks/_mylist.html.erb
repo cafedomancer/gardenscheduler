@@ -10,11 +10,12 @@
       </div>
     </div>
   <% end %>
+
   <% @tasks&.each do |task| %>
-    <div class="col">
-      <div class="card card-link">
+    <div class="col" >
+      <div class="card card-link mb-3">
         <%= link_to task.schedule, class: "card-body text-dark text-decoration-none" do %>
-          <h2 class="card-text"><%= "#{task.date} / #{task.schedule.variety.name}(#{task.schedule.name}) / #{task.name}" %></h2>
+          <h3 class="card-text"><%= "#{task.date} / #{task.schedule.variety.name}(#{task.schedule.name}) / #{task.name}" %></h3>
           <div class="small text-muted">
             <p>作業: <%= task.plan_memo %></p>
           </div>

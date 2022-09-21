@@ -18,14 +18,6 @@ docker-compose exec web rails webpacker:install
 docker-compose exec web rails webpacker:compile
 ```
 
-
-# .env
-
-```
-LINE_KEY='1657288949'
-LINE_SECRET='4cdad65a0002d421614a745c22937b6d'
-```
-
 # Variety登録
 
 ```

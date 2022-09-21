@@ -14,7 +14,7 @@
       </div>
     <% end %>
 
-    <div class="field row">
+    <div class="field row mb-3">
       <div class='col-6'>
 
         <%= javascript_pack_tag 'varieties' %>
@@ -28,7 +28,7 @@
       </div>
     </div>
 
-    <div class="field row">
+    <div class="field row mb-3">
       <div class='col'>
         <%= form.label Schedule.human_attribute_name(:name), class: 'form-label' %>
         <%= form.text_field :name, class: 'form-control', required: true %>

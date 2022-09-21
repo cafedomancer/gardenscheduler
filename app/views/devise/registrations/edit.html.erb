@@ -1,6 +1,5 @@
 <h2>アカウント設定</h2>
 
-
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
 
   <%= render "devise/shared/error_messages", resource: resource %>
@@ -12,7 +11,6 @@
   </div>
 </div>
 
-
 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 mb-3">
   <div class="col pb-2">
     <%= f.label :prefecture_id, class: 'form-label' %><br />
@@ -23,16 +21,21 @@
 <div class="row mb-3">
   <div class="col">
     <%= f.label :notification_time, class: 'form-label' %><br />
-    <%= f.time_select :notification_time, {:include_blank => true, :minute_step => 30}, class: 'form-select time_select_bootstrap'  %>
+    <%= f.select(:notification_time, (0..23), { selected: resource.notification_time.strftime("%k").strip }, class: 'form-select time_select_bootstrap') %>:00
   </div>
 </div>
 
-<div class="actions row">
+<div class="actions row mb-3">
   <div class="col">
     <%= f.submit t('.update'), class: 'btn btn-success' %>
   </div>
 </div>
 <% end %>
+
+<h2>Gardedn Scheduler LINEボット</h2>
+
+<div>メッセージを受信するために、LINEボットを友達追加してください。</div>
+<%= image_tag 'friend_qr.png' %>
 
 <h3><%= t('.cancel_my_account')%></h3>
 
