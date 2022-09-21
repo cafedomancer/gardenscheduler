@@ -1,12 +1,3 @@
-GIT
-  remote: https://github.com/fjordllc/rubocop-fjord
-  revision: e7a90d963f3a7b2edf9e9b79c0f9ee77cfec771e
-  branch: master
-  specs:
-    rubocop-fjord (0.2.2)
-      rubocop (>= 1.0)
-      rubocop-performance
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -86,6 +77,22 @@ GEM
       activesupport (>= 3.0.0, < 7.1)
       ruby2_keywords (>= 0.0.2, < 1.0)
     ast (2.4.2)
+    aws-eventstream (1.2.0)
+    aws-partitions (1.632.0)
+    aws-sdk-core (3.150.0)
+      aws-eventstream (~> 1, >= 1.0.2)
+      aws-partitions (~> 1, >= 1.525.0)
+      aws-sigv4 (~> 1.1)
+      jmespath (~> 1, >= 1.6.1)
+    aws-sdk-kms (1.58.0)
+      aws-sdk-core (~> 3, >= 3.127.0)
+      aws-sigv4 (~> 1.1)
+    aws-sdk-s3 (1.114.0)
+      aws-sdk-core (~> 3, >= 3.127.0)
+      aws-sdk-kms (~> 1)
+      aws-sigv4 (~> 1.4)
+    aws-sigv4 (1.5.1)
+      aws-eventstream (~> 1, >= 1.0.2)
     bcrypt (3.1.18)
     bindex (0.8.1)
     bootsnap (1.12.0)
@@ -149,6 +156,7 @@ GEM
     jbuilder (2.11.5)
       actionview (>= 5.0.0)
       activesupport (>= 5.0.0)
+    jmespath (1.6.1)
     jquery-rails (4.5.0)
       rails-dom-testing (>= 1, < 3)
       railties (>= 4.2.0)
@@ -300,9 +308,6 @@ GEM
       unicode-display_width (>= 1.4.0, < 3.0)
     rubocop-ast (1.21.0)
       parser (>= 3.1.1.0)
-    rubocop-performance (1.15.0)
-      rubocop (>= 1.7.0, < 2.0)
-      rubocop-ast (>= 0.4.0)
     rubocop-rails (2.16.1)
       activesupport (>= 4.2.0)
       rack (>= 1.1)
@@ -379,6 +384,7 @@ PLATFORMS
 DEPENDENCIES
   active_hash
   activeadmin
+  aws-sdk-s3
   bootsnap (>= 1.4.4)
   byebug
   capybara (>= 3.26)
@@ -402,7 +408,6 @@ DEPENDENCIES
   rack-mini-profiler (~> 2.0)
   rails (~> 6.1.6, >= 6.1.6.1)
   rails-i18n
-  rubocop-fjord!
   rubocop-rails
   sass-rails (>= 6)
   selenium-webdriver (>= 4.0.0.rc1)

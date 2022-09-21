@@ -47,7 +47,6 @@ class User < ApplicationRecord
   end
 
   def initialize_notification_time
-    self.update!(notification_time: '08:00:00')
+    update!(notification_time: '08:00:00')
   end
-
 end
