@@ -5,6 +5,10 @@ class TopController < ApplicationController
     @only_mine = false
 
     @schedules = Schedule.all.page(params[:page]).order('created_at DESC')
+    if user_signed_in?
+      @tasks = Task.where(user_id: current_user.id, done_at: [nil, '']).limit(10)
+    end
+
     if params[:variety_id].present?
       @schedules = @schedules.where(variety_id: params[:variety_id])
       @variety_selected = params[:variety_id]

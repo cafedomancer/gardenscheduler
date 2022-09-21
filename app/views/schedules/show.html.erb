@@ -1,7 +1,11 @@
 <div class="row mb-3">
   <div class="col">
     <div class="card card-body text-dark text-decoration-none">
-      <h2 class="card-text"><%= "#{@schedule.variety.name}@#{@schedule.prefecture&.name}" %></h2>
+      <% if current_user&.id == @schedule.user_id %>
+        <h2 class="card-text"><%= "#{@schedule.variety.name}(#{@schedule.name})@#{@schedule.prefecture&.name}" %></h2>
+      <% else %>
+        <h2 class="card-text"><%= "#{@schedule.variety.name}@#{@schedule.prefecture&.name}" %></h2>
+      <% end %>
       <div class="small text-muted">
         <%= l @schedule.updated_at.to_date, format: :default %>
         (<%= @schedule.user.name %><% if @schedule.prefecture.present? %><% end %>)

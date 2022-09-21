@@ -5,7 +5,8 @@
   </a>
 
   <ul class="nav nav-pills">
-    <li class="nav-item"><a href="/schedules/new" class="nav-link">スケジュール作成</a></li>
+    <li class="nav-item"><a href="/schedules" class="nav-link">スケジュール</a></li>
+    <li class="nav-item"><a href="/schedules/new" class="nav-link">作成</a></li>
 
     <% if user_signed_in? %>
       <li class="nav-item dropdown">
@@ -18,7 +19,7 @@
         </ul>
       </li>
     <% else %>
-      <li class="nav-item"><%= link_to "Sign in", new_user_session_path, class: 'nav-link' %></li>
+      <li class="nav-item"><%= link_to "ログイン", new_user_session_path, class: 'nav-link' %></li>
     <% end %>
 
   </ul>

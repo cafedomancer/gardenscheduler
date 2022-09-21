@@ -4,7 +4,27 @@ class SchedulesController < ApplicationController
 
   # GET /schedules or /schedules.json
   def index
-    @schedules = Schedule.all
+    @variety_selected = ''
+    @prefecture_selected = ''
+    @only_mine = false
+
+    @schedules = Schedule.all.page(params[:page]).order('created_at DESC')
+    if user_signed_in?
+      @tasks = Task.where(user_id: current_user.id, done_at: [nil, '']).limit(10)
+    end
+
+    if params[:variety_id].present?
+      @schedules = @schedules.where(variety_id: params[:variety_id])
+      @variety_selected = params[:variety_id]
+    end
+    if params[:prefecture_id].present?
+      @schedules = @schedules.where(prefecture_id: params[:prefecture_id])
+      @prefecture_selected = params[:prefecture_id]
+    end
+    if params[:only_mine]
+      @schedules = @schedules.where(user_id: current_user.id)
+      @only_mine = 'true'
+    end
   end
 
   # GET /schedules/1 or /schedules/1.json
@@ -70,7 +90,7 @@ class SchedulesController < ApplicationController
     @schedule.destroy
 
     respond_to do |format|
-      format.html { redirect_to schedules_url, notice: "Schedule was successfully destroyed." }
+      format.html { redirect_to root_url, notice: "Schedule was successfully destroyed." }
       format.json { head :no_content }
     end
   end

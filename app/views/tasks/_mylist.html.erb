@@ -1,0 +1,25 @@
+
+<h2>MY作業予定</h2>
+
+<div class="row row-cols-1 mb-3">
+
+  <% if @tasks.empty? %>
+    <div class="col">
+      <div class="alert alert-info" role="alert">
+        栽培スケジュールは未登録です。
+      </div>
+    </div>
+  <% end %>
+  <% @tasks&.each do |task| %>
+    <div class="col">
+      <div class="card card-link">
+        <%= link_to task.schedule, class: "card-body text-dark text-decoration-none" do %>
+          <h2 class="card-text"><%= "#{task.date} / #{task.schedule.variety.name}(#{task.schedule.name}) / #{task.name}" %></h2>
+          <div class="small text-muted">
+            <p>作業: <%= task.plan_memo %></p>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+</div>
