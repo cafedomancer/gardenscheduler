@@ -58,8 +58,14 @@ class SchedulesController < ApplicationController
 
   # POST /schedules or /schedules.json
   def create
+    variety = Variety.find_by_id(schedule_params[:variety_id])
+    if variety.nil?
+      variety = Variety.create({user_id: current_user.id, name: schedule_params[:variety_id]})
+    end
+
     @schedule = Schedule.new(schedule_params)
     @schedule.user = current_user
+    @schedule.variety_id = variety.id
 
     respond_to do |format|
       if @schedule.save

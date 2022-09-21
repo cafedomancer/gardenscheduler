@@ -16,8 +16,10 @@
 
     <div class="field row">
       <div class='col-6'>
+
+        <%= javascript_pack_tag 'varieties' %>
         <%= form.label Schedule.human_attribute_name(:variety_id), class: 'form-label' %>
-        <%= form.collection_select :variety_id, Variety.all, :id, :name, options = { include_blank: true }, class: 'form-select', required: true %>
+        <%= form.collection_select :variety_id, Variety.all.order("name ASC"), :id, :name, options = { include_blank: true }, class: 'form-select', required: true %>
       </div>
 
       <div class='col-6'>
@@ -69,4 +71,3 @@
   </div>
 
 <% end %>
-
