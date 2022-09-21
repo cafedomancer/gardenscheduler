@@ -1,3 +1,15 @@
+<div class='row mb-3 mt-3'>
+  <div class='col'>
+    <h3><%= "#{@task.schedule.variety.name}(#{@task.schedule.name})@#{@task.schedule.prefecture&.name}" %></h3>
+  </div>
+</div>
+
+<div class='row mb-3'>
+  <div class='col'>
+    作業メモ: <%= "#{@task.plan_memo}" %>
+  </div>
+</div>
+<hr>
 <%= form_with(model: @task, local: true) do |form| %>
   <div class="task_form">
     <% if task.errors.any? %>
@@ -25,14 +37,15 @@
 
     <div class="form-group row mb-3">
       <div class='col'>
+        <%= form.label :done_memo, class: 'form-label' %>
         <%= form.text_area :done_memo, class: 'form-control', placeholder: '作業メモ（公開されます）' %>
       </div>
     </div>
 
     <div class="form-group row mb-3">
       <div class='col'>
-        <%= form.label :done_image1 %>
-        <%= form.file_field :done_image1 %>
+        <%= form.label :done_image1, class: 'form-label' %>
+        <%= form.file_field :done_image1, class: 'form-control' %>
       </div>
     </div>
 
@@ -44,7 +57,7 @@
       </div>
     </div>
 
-  <div class="actions row">
+  <div class="actions row mb-3">
     <div class='col'>
       <%= form.submit '保存する', class: 'btn btn-success' %>
     </div>
