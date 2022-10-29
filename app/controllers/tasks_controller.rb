@@ -12,7 +12,7 @@ class TasksController < ApplicationController
     end
     respond_to do |format|
       if @task.update(task_params)
-        format.html { redirect_to schedule_url(@task.schedule), notice: "Task was successfully updated." }
+        format.html { redirect_to schedule_url(@task.schedule), notice: "作業を更新しました。" }
         format.json { render :show, status: :ok, location: @task }
       else
         format.html { render :edit, status: :unprocessable_entity }

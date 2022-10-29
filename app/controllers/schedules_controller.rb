@@ -69,7 +69,7 @@ class SchedulesController < ApplicationController
 
     respond_to do |format|
       if @schedule.save
-        format.html { redirect_to schedule_url(@schedule), notice: "Schedule was successfully created." }
+        format.html { redirect_to schedule_url(@schedule), notice: "スケジュールを登録しました。" }
         format.json { render :show, status: :created, location: @schedule }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -82,7 +82,7 @@ class SchedulesController < ApplicationController
   def update
     respond_to do |format|
       if @schedule.update(schedule_params)
-        format.html { redirect_to schedule_url(@schedule), notice: "Schedule was successfully updated." }
+        format.html { redirect_to schedule_url(@schedule), notice: "スケジュールを更新しました。" }
         format.json { render :show, status: :ok, location: @schedule }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -96,7 +96,7 @@ class SchedulesController < ApplicationController
     @schedule.destroy
 
     respond_to do |format|
-      format.html { redirect_to root_url, notice: "Schedule was successfully destroyed." }
+      format.html { redirect_to root_url, notice: "スケジュールを削除しました。" }
       format.json { head :no_content }
     end
   end
@@ -105,7 +105,7 @@ class SchedulesController < ApplicationController
 
     def check_owner
       if !user_signed_in? || current_user.id != @schedule.user_id
-        redirect_to root_path, notice: "Permission denied."
+        redirect_to root_path, notice: "権限が有りません。"
       end
     end
 
