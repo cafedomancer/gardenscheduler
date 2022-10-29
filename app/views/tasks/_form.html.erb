@@ -42,17 +42,23 @@
       </div>
     </div>
 
-    <div class="form-group row mb-3">
+    <div class="form-group row mb-3 <%= @task.errors.include?(:done_image1) ? "validation_errors" : "" %>">
       <div class='col'>
         <%= form.label :done_image1, class: 'form-label' %>
-        <%= form.file_field :done_image1, class: 'form-control' %>
+        <%= form.file_field :done_image1, onchange: "doneImage(this);", accept: "image/jpeg,image/gif,image/png", class: 'form-control' %>  
       </div>
     </div>
 
-    <div class="form-group row mb-3">
+    <div class="form-group row mb-3" id='row_done_preview' style='display:none'>
+      <div class='col'>
+        <img id="done_preview" class="mb-3" width="300">
+      </div>
+    </div>
+
+    <div class="form-group row mb-3" id='row_done_image1'>
       <div class='col'>
         <% if @task.done_image1.attached? && @task.done_image1.variable? %>
-          <%= image_tag @task.done_image1.variant(resize: '300') %>
+          <%= image_tag @task.done_image1.variant(resize: '300'), id: 'done_image1' %>
         <% end %>
       </div>
     </div>
@@ -65,3 +71,14 @@
 
 <% end %>
 
+<script>
+  function doneImage(obj){
+      var fileReader = new FileReader()
+      fileReader.onload = (function() {
+        document.getElementById('done_preview').src = fileReader.result
+        document.getElementById('row_done_image1').style = 'display:none'
+        document.getElementById('row_done_preview').style = 'display:block'
+      })
+      fileReader.readAsDataURL(obj.files[0])
+  }
+</script>
