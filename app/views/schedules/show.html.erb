@@ -40,7 +40,7 @@
         <div class="accordion-body row">
           <div class='col'>
             <p>作業メモ: <%= task.plan_memo %></p>
-            <p>完了日: <%= task.done_at? ? task.done_at : '-' %></p>
+            <p>完了日: <%= task.done_at? ? l(task.date, format: :long) : '-' %></p>
             <p>完了メモ: <%= task.done_memo %></p>
             <p>完了画像: 
               <% if task.done_image1.attached? %>
