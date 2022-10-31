@@ -27,7 +27,7 @@
   <% @tasks.each do | task | %>
     <div class="accordion-item">
       <h2 class="accordion-header" id="panelsStayOpen-heading-<%= task.id %>">
-        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse-<%= task.id %>" aria-expanded="true" aria-controls="panelsStayOpen-collapse-<%= task.id %>">
+        <button class="accordion-button<%= ' collapsed' if (params[:task_id].present? && task.id != params[:task_id].to_i) %>" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse-<%= task.id %>" aria-expanded="<%= (params[:task_id].blank? || task.id == params[:task_id].to_i) ? 'true' : 'false' %>" aria-controls="panelsStayOpen-collapse-<%= task.id %>">
           <% if task.done_at? %>
             <i class="fas fa-check"></i> 
           <% end %>
@@ -36,7 +36,7 @@
         </button>
       </h2>
 
-      <div id="panelsStayOpen-collapse-<%= task.id %>" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-heading-<%= task.id %>">
+      <div id="panelsStayOpen-collapse-<%= task.id %>" class="accordion-collapse collapse <%= 'show' if (params[:task_id].blank? || task.id == params[:task_id].to_i) %>" aria-labelledby="panelsStayOpen-heading-<%= task.id %>">
         <div class="accordion-body row">
           <div class='col'>
             <p>作業メモ: <%= task.plan_memo %></p>
