@@ -1,8 +1,7 @@
 class TasksController < ApplicationController
   before_action :set_task, only: %i[ edit update ]
 
-  def edit
-  end
+  def edit; end
 
   def update
     if params[:status] == '0'
@@ -10,6 +9,11 @@ class TasksController < ApplicationController
     elsif params[:status] == '1'
       @task.done_at = DateTime.now
     end
+
+    if params[:done_image1_id]
+      @task.done_image1.purge
+    end
+
     respond_to do |format|
       if @task.update(task_params)
         format.html { redirect_to schedule_url(@task.schedule), notice: "作業を更新しました。" }

@@ -59,6 +59,10 @@
       <div class='col'>
         <% if @task.done_image1.attached? && @task.done_image1.variable? %>
           <%= image_tag @task.done_image1.variant(resize: '300'), id: 'done_image1' %>
+          <div class="form-check">
+            <%= check_box_tag :done_image1_id, @task.done_image1.id, false, {class: "form-check-input", id: "done_image1-check"} %>
+            <label class="form-check-label" for="done_image1-check">削除</label>
+          </div>
         <% end %>
       </div>
     </div>
