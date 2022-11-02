@@ -8,20 +8,45 @@
 
 <% if user_signed_in? %>
   <h2>MYスケジュール</h2>
-<% end %>
-<div class="row row-cols-1 row-cols-md-2 g-4 mb-3">
-  <% @schedules.each do |schedule| %>
-    <div class="col">
-      <div class="card card-link">
-        <%= link_to schedule, class: "card-body text-dark text-decoration-none" do %>
-          <h3 class="card-text"><%= "#{schedule.variety.name}@#{schedule.prefecture&.name}" %></h3>
-          <div class="small text-muted">
-            <p>作業: <%= schedule.tasks.count %>件</p>
-            <%= l schedule.updated_at.to_date, format: :default %>
-            (<%= schedule.user.name %><% if schedule.prefecture.present? %><% end %>)
+    <% if @schedules.empty? %>
+      <div class="row row-cols-1 mb-3">
+        <div class="col">
+          <div class="alert alert-info" role="alert">
+            栽培スケジュールは登録されていません。
           </div>
-        <% end %>
+        </div>
+    <% else %>
+      <div class="row row-cols-1 row-cols-md-2 g-4 mb-3">
+    <% end %>
+
+    <% @schedules.each do |schedule| %>
+      <div class="col">
+        <div class="card card-link">
+          <%= link_to schedule, class: "card-body text-dark text-decoration-none" do %>
+            <h3 class="card-text"><%= "#{schedule.variety.name}@#{schedule.prefecture&.name}" %></h3>
+            <div class="small text-muted">
+              <p>作業: <%= schedule.tasks.count %>件</p>
+              <%= l schedule.updated_at.to_date, format: :default %>
+              (<%= schedule.user.name %><% if schedule.prefecture.present? %><% end %>)
+            </div>
+          <% end %>
+        </div>
       </div>
+    <% end %>
+  </div>
+<% else %>
+  <div class="row">
+    <div class="col">
+      <h2>Garden Scheduler ってなに？</h2>
+      <p>Garden Schedulerは、<b>家庭菜園や庭木の手入れ時期を忘れてしまう問題</b>を解決したい<b>家庭菜園や庭好きな人</b>向けの、<b>栽培スケジュール管理サービス</b>です。</p>
+      <p>このサービスを利用すると、<b>植物の栽培スケジュールを作成し、必要な時期になるとLINEで通知を受けること</b>ができ、<b>自分で作成した栽培スケジュールを他の利用者と共有</b>することもできます。</p>
+<p>ここイメージ</p>
+<p>庭の植栽や家庭菜園には、日常の水やりの他にも栽培開始からの日数や季節に応じて必要なお手入れがたくさんあります。
+例えば、土作り、植え付け、間引き、植え替え、追肥、芽欠き、剪定等などです。
+栽培する植物が増えると、このようなお手入れタイミングをつい忘れて生育不良につながってしまうことがよくあります。そんな問題をGarden Schedulerが解決します。
+また、作成された栽培スケジュールや作業記録は公開されますので、皆さんの栽培ノウハウとして共有することもできます。</p>
+
     </div>
-  <% end %>
-</div>
+  </div>
+
+<% end %>

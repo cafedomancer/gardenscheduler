@@ -7,8 +7,6 @@ class TopController < ApplicationController
     if user_signed_in?
       @schedules = Schedule.where(user_id: current_user.id).order('created_at DESC')
       @tasks = Task.where(user_id: current_user.id, done_at: [nil, '']).order('date ASC').limit(10)
-    else
-      @schedules = Schedule.all.order('created_at DESC')
     end
 
     if params[:variety_id].present?
