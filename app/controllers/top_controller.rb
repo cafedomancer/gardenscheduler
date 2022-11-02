@@ -24,4 +24,7 @@ class TopController < ApplicationController
       @only_mine = 'true'
     end
   end
+
+  def tos; end
+  def pp; end
 end

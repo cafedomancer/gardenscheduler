@@ -12,5 +12,7 @@ Rails.application.routes.draw do
     omniauth_callbacks: "omniauth_callbacks",
     registrations: 'users/registrations'
   }
+  get 'tos' => 'top#tos'
+  get 'pp' => 'top#pp'
   root to: 'top#index'
 end
