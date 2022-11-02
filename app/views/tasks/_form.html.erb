@@ -1,15 +1,9 @@
-<div class='row mb-3 mt-3'>
-  <div class='col'>
-    <h3><%= "#{@task.schedule.variety.name}(#{@task.schedule.name})@#{@task.schedule.prefecture&.name}" %></h3>
+<div class='row mb-3'>
+  <div class='col small text-muted'>
+作業内容: <%= "#{@task.name}" %><%= "(#{@task.plan_memo})" if @task.plan_memo? %>
   </div>
 </div>
 
-<div class='row mb-3'>
-  <div class='col'>
-    作業メモ: <%= "#{@task.plan_memo}" %>
-  </div>
-</div>
-<hr>
 <%= form_with(model: @task, local: true) do |form| %>
   <div class="task_form">
     <% if task.errors.any? %>
@@ -25,6 +19,7 @@
 
     <div class="form-group row mb-3">
       <div class='col'>
+        <%= form.label '作業状態', class: 'form-label' %>
         <% if @task.done_at.nil? %>
           <%= radio_button_tag 'status', '0', checked: true  %> 未完
           <%= radio_button_tag 'status', '1' %> 完了
@@ -66,6 +61,12 @@
         <% end %>
       </div>
     </div>
+
+  <div class="alert alert-primary d-flex align-items-center" role="alert">
+    <div>
+      <i class="fas fa-info-circle"></i>作業記録に登録した内容は公開されます
+    </div>
+  </div>
 
   <div class="actions row mb-3">
     <div class='col'>

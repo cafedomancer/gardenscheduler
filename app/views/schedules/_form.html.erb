@@ -1,4 +1,4 @@
-<%= javascript_pack_tag 'schedules.js' %>
+<%#= javascript_pack_tag 'schedules.js' %>
 <%= form_with(model: @schedule, local: true) do |form| %>
   <%= form.hidden_field :schedule_id, value: @schedule.schedule_id %>
   <div class="schedule_form">
@@ -15,31 +15,30 @@
     <% end %>
 
     <div class="field row mb-3">
-      <div class='col-6'>
-
-        <%= javascript_pack_tag 'varieties' %>
-        <%= form.label Schedule.human_attribute_name(:variety_id), class: 'form-label' %>
-        <%= form.collection_select :variety_id, Variety.all.order("name ASC"), :id, :name, options = { include_blank: true }, class: 'form-select', required: true %>
+      <div class='col-8'>
+        <%= form.label Schedule.human_attribute_name(:name), class: 'form-label' %>
+        <%= form.text_field :name, class: 'form-control', required: true, placeholder: '庭, 畑, 植木鉢, プランターなど' %>
       </div>
 
-      <div class='col-6'>
+      <div class='col-4'>
         <%= form.label Schedule.human_attribute_name(:prefecture_id), class: 'form-label' %>
         <%= form.collection_select(:prefecture_id, Prefecture.all, :id, :name, {}, {class: 'form-select', required: true}) %>
       </div>
     </div>
 
     <div class="field row mb-3">
-      <div class='col'>
-        <%= form.label Schedule.human_attribute_name(:name), class: 'form-label' %>
-        <%= form.text_field :name, class: 'form-control', required: true %>
+      <div class='col-6'>
+        <%= javascript_pack_tag 'varieties' %>
+        <%= form.label Schedule.human_attribute_name(:variety_id), class: 'form-label' %>
+        <%= form.collection_select(:variety_id, Variety.all.order("name ASC"), :id, :name, { include_blank: true }, {class: 'form-select', required: true}) %>
       </div>
     </div>
 
     <div class="links row mb-3">
       <div class='col'>
-        作業を追加 <%= link_to_add_association form, :tasks, class: '', data: {association_insertion_node: '#task-association-insertion-point'},
+        <%= link_to_add_association form, :tasks, class: '', data: {association_insertion_node: '#task-association-insertion-point'},
         wrap_object: Proc.new {|task| task.user_id = current_user.id; task } do %>
-          <i class="far fa-plus-square"></i>
+          <i class="far fa-plus-square"></i>作業追加
         <% end %>
       </div>
     </div>

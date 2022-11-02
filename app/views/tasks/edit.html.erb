@@ -1,4 +1,4 @@
-<h2>作業記録</h2>
+<h2>作業記録 / <%= "#{@task.schedule.variety.name}(#{@task.schedule.name})@#{@task.schedule.prefecture&.name}" %></h2>
 
 <%= render 'form', task: @task %>
 

@@ -18,7 +18,7 @@
       <h5 class="card-header"><%= "#{l task.date, format: :long}" %></h5>
       <div class="card-body">
         <%= link_to schedule_path(task.schedule.id, task_id: task.id), class: "text-dark text-decoration-none" do %>
-        <h5 class="card-title"><%= "#{task.schedule.variety.name}(#{task.schedule.name})" %> : <%= "#{task.name}(#{task.plan_memo})" %></h5>
+        <h5 class="card-title"><%= "#{task.schedule.variety.name}(#{task.schedule.name}): #{task.name}" %><%= "(#{task.plan_memo})" if task.plan_memo? %></h5>
         <% end %>
       </div>
     </div>

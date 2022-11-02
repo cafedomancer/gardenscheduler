@@ -1,33 +1,46 @@
-<div class="row mb-3">
-  <div class="col">
-      <% if current_user&.id == @schedule.user_id %>
-        <h2 class="card-text"><%= "#{@schedule.variety.name}(#{@schedule.name})@#{@schedule.prefecture&.name}" %></h2>
-      <% else %>
-        <h2 class="card-text"><%= "#{@schedule.variety.name}@#{@schedule.prefecture&.name}" %></h2>
-      <% end %>
-      <div class="small text-muted">
-        <%= l @schedule.updated_at.to_date, format: :default %>
-        (<%= @schedule.user.name %><% if @schedule.prefecture.present? %><% end %>)
-      </div>
-      <div class='text-end'>
-        <%= link_to copy_schedule_path(@schedule) do %>
-         <i class="fas fa-code-branch"></i> このスケジュールをコピー
-        <% end %>
-        <% if @schedule.parent %>
-        (<%= link_to 'オリジナル', @schedule.parent %>)
-        <% end %>
-        <% if @schedule.children.size > 0 %>
-        (<%= @schedule.children.size %>)
-        <% end %>
-      </div>
+<div class="d-flex mb-3">
+  <div class="me-auto">
+    <% if current_user&.id == @schedule.user_id %>
+      <h2 class="card-text"><%= "#{@schedule.variety.name}(#{@schedule.name})@#{@schedule.prefecture&.name}" %></h2>
+    <% else %>
+      <h2 class="card-text"><%= "#{@schedule.variety.name}@#{@schedule.prefecture&.name}" %></h2>
+    <% end %>
+    <div class="small text-muted">
+      <%= l @schedule.updated_at.to_date, format: :default %>
+      (<%= @schedule.user.name %><% if @schedule.prefecture.present? %><% end %>)
+    </div>
+  </div>
+  <div class="">
+    <% if user_signed_in? %>
+    <%= link_to '編集', edit_schedule_path(@schedule), class: 'btn btn-outline-secondary' %>
+    <%= link_to '削除', @schedule, method: :delete, data: { confirm: '本当に削除しますか?' }, class: 'btn btn-outline-danger' %>
+    <% end %>
   </div>
 </div>
 
-<div class="accordion mb-5">
+<div class="row mb-3">
+  <div class="col">
+    <div class='text-end'>
+      <%= link_to copy_schedule_path(@schedule) do %>
+        <i class="fas fa-code-branch"></i>このスケジュールをコピー
+      <% end %>
+      <% if @schedule.parent %>
+      (<%= link_to 'オリジナル', @schedule.parent %>)
+      <% end %>
+      <% if @schedule.children.size > 0 %>
+      (<%= @schedule.children.size %>)
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<div class="accordion mb-3">
   <% @tasks.each do | task | %>
     <div class="accordion-item">
       <h2 class="accordion-header" id="panelsStayOpen-heading-<%= task.id %>">
-        <button class="accordion-button<%= ' collapsed' if (params[:task_id].present? && task.id != params[:task_id].to_i) %>" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse-<%= task.id %>" aria-expanded="<%= (params[:task_id].blank? || task.id == params[:task_id].to_i) ? 'true' : 'false' %>" aria-controls="panelsStayOpen-collapse-<%= task.id %>">
+        <button class="accordion-button
+        <%= ' collapsed' if (params[:task_id].present? && task.id != params[:task_id].to_i) %>
+        " type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse-<%= task.id %>" aria-expanded="<%= (params[:task_id].blank? || task.id == params[:task_id].to_i) ? 'true' : 'false' %>" aria-controls="panelsStayOpen-collapse-<%= task.id %>">
           <% if task.done_at? %>
             <i class="fas fa-check"></i> 
           <% end %>
@@ -39,18 +52,18 @@
       <div id="panelsStayOpen-collapse-<%= task.id %>" class="accordion-collapse collapse <%= 'show' if (params[:task_id].blank? || task.id == params[:task_id].to_i) %>" aria-labelledby="panelsStayOpen-heading-<%= task.id %>">
         <div class="accordion-body row">
           <div class='col'>
-            <p>作業メモ: <%= task.plan_memo %></p>
+            <p>作業メモ: <%= task.plan_memo? ? task.plan_memo : '-' %></p>
             <p>完了日: <%= task.done_at? ? l(task.date, format: :long) : '-' %></p>
-            <p>完了メモ: <%= task.done_memo %></p>
-            <p>完了画像: 
-              <% if task.done_image1.attached? %>
+            <p>完了メモ: <%= task.done_memo? ? task.done_memo : '-' %></p>
+            <% if task.done_image1.attached? %>
+              <p>完了画像: 
                 <%= image_tag task.done_image1.variant(resize: '300x300').processed %>
-              <% end %>
-            </p>
+              </p>
+            <% end %>
             <div class='text-end'>
               <% if current_user&.id == @schedule.user_id %>
                 <%= link_to edit_task_path(task) do %>
-                  <i class="far fa-edit"></i>
+                  <i class="far fa-edit"></i>作業記録
                 <% end %>
               <% end %>
             </div>
@@ -60,9 +73,3 @@
     </div>
   <% end %>
 </div>
-
-<%= link_to '戻る', root_path %>
-<% if user_signed_in? %>
- | <%= link_to '編集', edit_schedule_path(@schedule) %>
- | <%= link_to '削除', @schedule, method: :delete, data: { confirm: '本当に削除しますか?' } %>
-<% end %>

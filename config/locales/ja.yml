@@ -13,7 +13,7 @@ ja:
         updated_at: 更新日
         notification_time: 通知時刻
       schedule:
-        name: ニックネーム
+        name: 場所
         user_id: ユーザー
         prefecture_id: 都道府県
         variety_id: 品種
