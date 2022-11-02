@@ -34,9 +34,9 @@
 
 <h2>Gardedn Scheduler LINEボット</h2>
 
-<div>メッセージを受信するために、LINEボットを友達追加してください。</div>
+<div>LINEでスケジュールのお知らせを受信するために、LINEボットを友達追加してください。</div>
 <%= image_tag 'friend_qr.png' %>
 
 <h3><%= t('.cancel_my_account')%></h3>
 
-<p><%= t('.unhappy') %> <%= button_to t('.cancel_my_account'), registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete, class: 'btn btn-warning' %></p>
+<p><%= t('devise.registrations.edit.unhappy') %> <%= button_to t('.cancel_my_account'), registration_path(resource_name), data: { confirm: "本当によろしいですか？" }, method: :delete, class: 'btn btn-warning' %></p>
