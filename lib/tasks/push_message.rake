@@ -12,8 +12,8 @@ namespace :push_message do
         text: message_body
       }
       client = Line::Bot::Client.new { |config|
-        config.channel_secret = ENV['LINE_CHANNEL_SECRET']
-        config.channel_token = ENV['LINE_CHANNEL_TOKEN']
+        config.channel_secret = Rails.application.credentials.LINE_BOT_CHANNEL_SECRET
+        config.channel_token = Rails.application.credentials.LINE_BOT_CHANNEL_TOKEN
       }
       response = client.push_message(task.user.uid, message)
       p response
