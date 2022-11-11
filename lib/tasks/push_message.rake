@@ -1,14 +1,11 @@
 namespace :push_message do
   desc 'LINE pushメッセージの送信'
   task notification: :environment do
-    p Date.today
-    tasks = Task.where('date = ? and done_at isNull', Date.current)
+    tasks = Task.where('date = ? and done_at IS NULL', Date.current)
     tasks.each do |task|
-      # p task.user.notification_time.hour
-      # p Time.current.hour
       next if task.user.notification_time.hour != Time.current.hour
 
-      message_body = "#{task.schedule.variety.name}(#{task.schedule.name})の「#{task.name}(#{task.plan_memo})」の作業日です！"
+      message_body = "こんにちは！今日は#{task.schedule.variety.name}(#{task.schedule.name})の「#{task.name}(#{task.plan_memo})」の作業日です！"
       message_body << "作業が終わったら https://gardenscheduler.com/tasks/#{task.id}/edit から作業記録をつけてください。"
       message = {
         type: 'text',
