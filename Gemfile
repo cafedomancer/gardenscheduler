@@ -39,6 +39,7 @@ gem 'image_processing', '~> 1.2'
 gem "aws-sdk-s3", require: false
 gem 'line-bot-api'
 gem 'mysql2', '~> 0.5'
+gem 'whenever', require: false
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
