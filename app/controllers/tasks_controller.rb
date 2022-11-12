@@ -37,6 +37,8 @@ class TasksController < ApplicationController
   end
 
   def check_owner
-    redirect_to root_path, notice: '権限が有りません。' if !user_signed_in? || current_user.id != @task.user_id
+    if !user_signed_in? || current_user.id != @task.user_id
+      redirect_to new_user_session_path, notice: '作業記録を編集するためにログインしてください。'
+    end
   end
 end
