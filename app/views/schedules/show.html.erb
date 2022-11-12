@@ -12,7 +12,7 @@
   </div>
   <div class="">
     <% if user_signed_in? %>
-    <%= link_to '編集', edit_schedule_path(@schedule), class: 'btn btn-outline-secondary' %>
+    <%= link_to '編集', edit_schedule_path(@schedule), class: 'btn btn-outline-success' %>
     <%= link_to '削除', @schedule, method: :delete, data: { confirm: '本当に削除しますか?' }, class: 'btn btn-outline-danger' %>
     <% end %>
   </div>
