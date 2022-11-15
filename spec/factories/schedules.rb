@@ -2,7 +2,7 @@
 
 FactoryBot.define do
   factory :schedule do
-    # association :user
-    # association :variety
+    association :user
+    association :variety
   end
 end

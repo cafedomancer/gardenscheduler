@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Schedule < ApplicationRecord
   belongs_to :variety
   belongs_to :user
@@ -10,4 +12,5 @@ class Schedule < ApplicationRecord
   has_many :children, class_name: 'Schedule', foreign_key: 'schedule_id', dependent: :destroy
   belongs_to :parent, class_name: 'Schedule', foreign_key: 'schedule_id', optional: true
 
+  validates :user_id, :variety_id, presence: true
 end

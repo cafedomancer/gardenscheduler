@@ -28,10 +28,3 @@ RSpec.describe Schedule, type: :model do
     expect(schedule).to_not be_valid
   end
 end
-
-# t.text "name"
-# t.integer "prefecture_id"
-# t.integer "user_id", null: false
-# t.integer "variety_id", null: false
-# t.datetime "created_at", precision: 6, null: false
-# t.datetime "updated_at", precision: 6, null: false
