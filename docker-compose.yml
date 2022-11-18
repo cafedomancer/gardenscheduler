@@ -19,9 +19,18 @@ services:
     stdin_open: true
     depends_on:
       - db
+      - chrome
     ports:
       - "3000:3000"
     volumes:
       - .:/app
+    environment:
+      - NODE_OPTIONS=--openssl-legacy-provider
+      - SELENIUM_REMOTE_URL=http://chrome:4444/wd/hub
+  chrome:
+    image: selenium/standalone-chrome:latest
+    ports:
+      - 4444:4444
+
 volumes:
   mysql:
