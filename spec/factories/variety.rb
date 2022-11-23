@@ -3,6 +3,7 @@
 FactoryBot.define do
   factory :variety do
     association :user
-    name { Faker::Lorem.characters(number: 5) }
+    id { 1 }
+    name { 'とうだいのひまわり' }
   end
 end

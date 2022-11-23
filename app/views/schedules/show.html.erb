@@ -21,6 +21,7 @@
 <div class="row mb-3">
   <div class="col">
     <div class='text-end'>
+      <% if user_signed_in? %>
       <%= link_to copy_schedule_path(@schedule) do %>
         <i class="fas fa-code-branch"></i>このスケジュールをコピー
       <% end %>
@@ -29,6 +30,7 @@
       <% end %>
       <% if @schedule.children.size > 0 %>
       (<%= @schedule.children.size %>)
+      <% end %>
       <% end %>
     </div>
   </div>
