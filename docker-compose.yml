@@ -2,6 +2,7 @@ version: "3"
 services:
   db:
     image: mysql:8.0.20
+    platform: linux/amd64
     volumes:
       - mysql:/var/lib/mysql:delegated
     environment:
