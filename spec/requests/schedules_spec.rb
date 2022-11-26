@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'Schedules', type: :request do
+RSpec.describe 'Schedules', type: :system, js: true do
   describe '[Schedulesコントローラー]' do
     before do
       @user = FactoryBot.create(:user)
@@ -99,31 +99,28 @@ RSpec.describe 'Schedules', type: :request do
       it 'スケジュールをEDIT/UPDATEできる' do
         FactoryBot.create(:variety, id: 3, name: 'あっちの花')
         sign_in @user
-        visit schedules_path
-        expect(page).to have_content 'みんなの栽培スケジュール'
-        expect(page).to have_content 'とうだいのひまわり@沖縄県'
-        click_link('とうだいのひまわり@沖縄県')
-        click_link('編集')
+        visit edit_schedule_path(1)
         expect(page).to have_content 'スケジュール編集'
+        expect(find('#schedule_name').value).to eq 'テストスケジュール01'
 
-        fill_in('schedule[name]', with: '試験中の畑')
-        select('三重県', from: 'schedule[prefecture_id]')
-        select('あっちの花', from: 'schedule[variety_id]')
+        fill_in('schedule[name]', with: 'テストスケジュール01改')
+        fill_in('schedule[tasks_attributes][0][date]', with: '12-31-2025')
+        select('元肥', from: 'schedule[tasks_attributes][0][name]')
+        fill_in('schedule[tasks_attributes][0][plan_memo]', with: '重労働')
         click_on('更新する')
-
         expect(page).to have_content 'スケジュールを更新しました。'
-        expect(page).to have_content 'あっちの花(試験中の畑)@三重県'
+        expect(page).to have_content '2025年12月31日(水) 元肥'
+        expect(page).to have_content '作業メモ: 重労働'
       end
 
-      it 'スケジュールをDESTROYできる', js: true do
+      it 'スケジュールをDESTROYできる' do
         sign_in @user
         visit schedules_path
         expect(page).to have_content 'みんなの栽培スケジュール'
         expect(page).to have_content 'とうだいのひまわり@沖縄県'
         click_link('とうだいのひまわり@沖縄県')
-        click_link('削除')
-        page.accept_confirm do
-          click_link 'OK'
+        accept_alert do
+          click_link('削除')
         end
         expect(page).to have_content 'スケジュールを削除しました。'
         expect(page).not_to have_content 'あっちの花(試験中の畑)@三重県'

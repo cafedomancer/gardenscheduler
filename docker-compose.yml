@@ -12,6 +12,7 @@ services:
       - '3307:3306'
     command: --default-authentication-plugin=mysql_native_password
   web:
+    platform: linux/x86_64
     build:
       context: .
       dockerfile: Dockerfile
@@ -20,15 +21,16 @@ services:
     stdin_open: true
     depends_on:
       - db
-      - selenium_chrome
     ports:
-      - "3000:3000"
+      - '3000:3000'
     volumes:
       - .:/app
     environment:
-      - NODE_OPTIONS=--openssl-legacy-provider
+      - "NODE_OPTIONS=--openssl-legacy-provider"
       - "SELENIUM_DRIVER_URL=http://selenium_chrome:4444/wd/hub"
+
   selenium_chrome:
+    platform: linux/x86_64
     image: selenium/standalone-chrome-debug
     logging:
       driver: none
