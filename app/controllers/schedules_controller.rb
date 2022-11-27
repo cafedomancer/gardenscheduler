@@ -23,7 +23,6 @@ class SchedulesController < ApplicationController
     end
     if params[:only_mine]
       @schedules = @schedules.where(user_id: current_user.id)
-      @only_mine = 'true'
     end
   end
 

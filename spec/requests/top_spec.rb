@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Top', type: :request do
-  describe 'Topコントローラー' do
+  describe 'システムスペック' do
     before do
       @user = FactoryBot.create(:user)
     end

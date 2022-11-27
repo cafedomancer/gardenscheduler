@@ -9,7 +9,7 @@
     <%= select_tag :prefecture_id, options_for_select(prefecture_choices, @prefecture_selected), include_blank: true, class: 'form-select', id: 'prefecture_select', onchange: "this.form.submit()" %>
   </div>
   <div class="col pb-2 d-flex align-items-center">
-    <%= check_box_tag 'only_mine', @only_mine, @only_mine , {class: "form-check-input", onclick: "this.form.submit()"} %> 自分のスケジュール
+    <%= check_box_tag 'only_mine', true, params[:only_mine] , {class: "form-check-input", onclick: "this.form.submit()"} %> 自分のスケジュール
   </div>
 </div>
 <% end %>
@@ -17,7 +17,7 @@
 <div class="row row-cols-1 row-cols-md-2 g-4">
   <% @schedules.each do |schedule| %>
     <div class="col">
-      <div class="card card-link">
+      <div class="card card-link schedule-card">
         <%= link_to schedule, class: "card-body text-dark text-decoration-none" do %>
           <h3 class="card-text"><%= "#{schedule.variety.name}@#{schedule.prefecture&.name}" %></h3>
           <div class="small text-muted">
