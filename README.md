@@ -18,6 +18,11 @@ docker-compose exec web rails webpacker:install
 docker-compose exec web rails webpacker:compile
 ```
 
+# rspec
+```
+docker-compose exec web rspec
+```
+
 # Variety登録
 
 ```
