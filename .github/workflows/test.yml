@@ -5,6 +5,9 @@ jobs:
   rspec:
     runs-on: ubuntu-latest
 
+    env:
+      RAILS_ENV: test
+
     services:
       mysql:
         image: mysql:8.0.20
@@ -15,18 +18,23 @@ jobs:
           MYSQL_ALLOW_EMPTY_PASSWORD: yes
         options: --health-cmd "mysqladmin ping" --health-interval 10s --health-timeout 5s --health-retries 10
 
-    env:
-      RAILS_ENV: test
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+      - name: Set Timezone
+        uses: szenius/set-timezone@v1.0
+        with:
+          timezoneLinux: "Asia/Tokyo"
 
+      - uses: actions/checkout@v3
       - name: Setup Ruby and install gems
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: .ruby-version
           bundler-cache: true 
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16.13.0'
 
       - name: Cache node modules
         uses: actions/cache@v2.1.4
@@ -36,8 +44,8 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-
 
-      - name: Install dependent libralies
-        run: sudo apt-get install libmysqlclient-dev
+      # - name: Install dependent libralies
+      #   run: sudo apt-get install libmysqlclient-dev
 
       - name: yarn install
         run: yarn install --check-files
@@ -45,16 +53,11 @@ jobs:
       - name: Setup Database
         run: |
           cp config/database.yml.ci config/database.yml
-          /etc/init.d/mysql start
           bundle exec rails db:create
           bundle exec rails db:migrate
-        env:
-          RAILS_ENV: test
 
       - name: run rspec
         run: bundle exec rspec
-        env:
-          RAILS_ENV: test
 
       # - name: Archive rspec result screenshots
       #   if: failure()
