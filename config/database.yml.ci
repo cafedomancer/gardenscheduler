@@ -3,5 +3,5 @@ test:
   encoding: utf8mb4
   username: root
   password:
-  host: 127.0.0.1
+  host: localhost
   database: gardenscheduler_test
