@@ -7,6 +7,7 @@ jobs:
 
     env:
       RAILS_ENV: test
+      SELENIUM_DRIVER_URL: http://selenium_chrome:4444/wd/hub
 
     services:
       mysql:
