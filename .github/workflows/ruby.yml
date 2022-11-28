@@ -45,6 +45,7 @@ jobs:
       - name: Setup Database
         run: |
           cp config/database.yml.ci config/database.yml
+          sudo /etc/init.d/mysql start
           bundle exec rails db:create
           bundle exec rails db:migrate
         env:
