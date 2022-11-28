@@ -39,6 +39,13 @@ jobs:
           gem install bundler
           bundle install --jobs 4 --retry 3 --path vendor/bundle
 
+      - name: install chorme
+        run: |
+          curl -sS -L https://dl.google.com/linux/linux_signing_key.pub | apt-key add -
+          echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google.list
+          apt-get update -q -y
+          apt-get install -y google-chrome-stable
+
       - name: Yarn install
         run: yarn install --check-files
 
