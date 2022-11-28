@@ -26,33 +26,21 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: .ruby-version
-          bundler-cache: true
+          bundler-cache: true 
 
       - name: Cache node modules
-        uses: actions/cache@v2
+        uses: actions/cache@v2.1.4
         with:
           path: node_modules
           key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-node-
 
-      - name: Install chrome
-        run: |
-          wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | apt-key add -
-          echo 'deb http://dl.google.com/linux/chrome/deb/ stable main' | tee /etc/apt/sources.list.d/google-chrome.list
-          apt update -y
-          apt install -y google-chrome-stable
-
       - name: Install dependent libralies
         run: sudo apt-get install libmysqlclient-dev
 
-      - name: bundle install
-        run: |
-          gem install bundler
-          bundle install --jobs 4 --retry 3
-
       - name: yarn install
-        run: yarn install --ignore-engines
+        run: yarn install --check-files
 
       - name: Setup Database
         run: |
