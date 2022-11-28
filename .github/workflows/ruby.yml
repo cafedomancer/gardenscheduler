@@ -2,12 +2,14 @@ name: RUN Rspec
 on: [push]
 
 jobs:
-  build:
+  rspec:
     runs-on: ubuntu-latest
 
     services:
       mysql:
         image: mysql:8.0.20
+        ports:
+          - 3306:3306
         env:
           MYSQL_USER: root
           MYSQL_ALLOW_EMPTY_PASSWORD: yes
@@ -17,12 +19,12 @@ jobs:
         RAILS_ENV: test
 
     steps:
-      - uses: actions/checkout@v1
-      - uses: actions/cache@v1
+      - uses: actions/checkout@v2
+      - uses: actions/cache@v2
         with:
           path: vendor/bundle
           key: bundle-${{ hashFiles('**/Gemfile.lock') }}
-      - uses: actions/cache@v1
+      - uses: actions/cache@v2
         with:
           path: node_modules
           key: yarn-${{ hashFiles('**/yarn.lock') }}
@@ -41,7 +43,7 @@ jobs:
       - name: bundle install
         run: |
           gem install bundler
-          bundle install --path vendor/bundle --quiet --jobs 4 --retry 3
+          bundle install --path vendor/bundle --jobs 4 --retry 3
       - name: yarn install
         run: yarn install --ignore-engines
       - name: Database create and migrate
@@ -53,9 +55,9 @@ jobs:
       - name: run rspec
         run: bundle exec rspec
 
-      - name: Archive rspec result screenshots
-        if: failure()
-        uses: actions/upload-artifact@v1
-        with:
-          name: rspec result screenshots
-          path: tmp/screenshots/
+      # - name: Archive rspec result screenshots
+      #   if: failure()
+      #   uses: actions/upload-artifact@v1
+      #   with:
+      #     name: rspec result screenshots
+      #     path: tmp/screenshots/
