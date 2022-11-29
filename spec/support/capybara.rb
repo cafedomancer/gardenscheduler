@@ -1,13 +1,14 @@
 require 'capybara/rspec'
 Capybara.register_driver :remote_chrome do |app|
   url = ENV['SELENIUM_DRIVER_URL']
-  caps = ::Selenium::WebDriver::Remote::Capabilities.chrome(
-    'goog:chromeOptions' => {
-      'args' => [
-        'no-sandbox',
-        'headless',
-        'disable-gpu',
-        'window-size=1680,1050'
+  caps = Selenium::WebDriver::Remote::Capabilities.chrome(
+    accept_insecure_certs: true,
+    'goog:chromeOptions': {
+      args: %w[
+        --no-sandbox
+        --headless
+        --disable-gpu
+        --window-size=1680,1050
       ]
     }
   )
@@ -20,8 +21,8 @@ RSpec.configure do |config|
   end
 
   config.before(:each, type: :system, js: true) do
-    Capybara.server_host = IPSocket.getaddress(Socket.gethostname)
-    Capybara.app_host = "http://#{Capybara.server_host}"
-    driven_by :remote_chrome, using: :headless_chrome
+    Capybara.server_host = 'web'
+    Capybara.app_host = 'http://web'
+    driven_by :remote_chrome
   end
 end
