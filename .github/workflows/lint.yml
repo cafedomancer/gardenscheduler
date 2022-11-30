@@ -1,0 +1,27 @@
+name: Ruby
+
+on: [push]
+
+jobs:
+  test:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup docker
+      shell: bash
+      run: |
+        docker-compose build
+        docker-compose run web yarn install --check-files
+        docker-compose run web yarn upgrade
+        docker-compose run web rake db:create db:migrate
+      env:
+        RAILS_ENV: test
+
+    - name: Run lint
+      shell: bash
+      run:  |
+        docker-compose run web bundle exec rubocop
+      env:
+        RAILS_ENV: test
