@@ -3,7 +3,7 @@ name: Ruby
 on: [push]
 
 jobs:
-  test:
+  lint:
 
     runs-on: ubuntu-latest
 
@@ -19,7 +19,7 @@ jobs:
       env:
         RAILS_ENV: test
 
-    - name: Run lint
+    - name: Run Lint
       shell: bash
       run:  |
         docker-compose run web bundle exec rubocop

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :push_message do
   desc 'LINE pushメッセージの送信'
   task notification: :environment do

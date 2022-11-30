@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class TasksController < ApplicationController
   before_action :set_task, only: %i[edit update]
   before_action :check_owner, only: %i[edit update destroy]

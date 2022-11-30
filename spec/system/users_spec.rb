@@ -62,8 +62,8 @@ RSpec.describe 'Users', type: :system, js: true do
         expect(page).to have_content 'アカウント削除'
         click_button('アカウント削除')
         expect {
-          page.accept_confirm "本当によろしいですか？"
-          expect(page).to have_content "アカウントを削除しました。"
+          page.accept_confirm '本当によろしいですか？'
+          expect(page).to have_content 'アカウントを削除しました。'
         }.to change { User.count }.by(-1)
       end
     end

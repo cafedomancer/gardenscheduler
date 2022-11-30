@@ -4,6 +4,6 @@ FactoryBot.define do
   factory :schedule do
     association :user
     association :variety
-    name {'テストスケジュール01'}
+    name { 'テストスケジュール01' }
   end
 end

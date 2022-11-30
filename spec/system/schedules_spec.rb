@@ -7,7 +7,7 @@ RSpec.describe 'Schedules', type: :system, js: true do
     let(:user) { FactoryBot.create(:user) }
     let(:variety) { FactoryBot.create(:variety, id: 1) }
     before do
-      @schedule = FactoryBot.create(:schedule, id: 1, user_id: user.id, variety_id: variety.id, prefecture_id:47)
+      @schedule = FactoryBot.create(:schedule, id: 1, user_id: user.id, variety_id: variety.id, prefecture_id: 47)
       @task = FactoryBot.create(:task, schedule_id: @schedule.id, user_id: user.id, name: '酸性土壌を作れ')
     end
 
@@ -87,11 +87,11 @@ RSpec.describe 'Schedules', type: :system, js: true do
     context 'スケジュール一覧の表示' do
       it '品種指定で絞り込みができる' do
         FactoryBot.create(:variety, id: 2, name: 'さくらんぼ')
-        FactoryBot.create(:schedule, id: 2, variety_id: 2, prefecture_id:7)
+        FactoryBot.create(:schedule, id: 2, variety_id: 2, prefecture_id: 7)
         FactoryBot.create(:variety, id: 3, name: 'マリーゴールド')
-        FactoryBot.create(:schedule, id: 3, variety_id: 3, prefecture_id:13)
+        FactoryBot.create(:schedule, id: 3, variety_id: 3, prefecture_id: 13)
         FactoryBot.create(:variety, id: 4, name: 'ハナミズキ')
-        FactoryBot.create(:schedule, id: 4, variety_id: 4, prefecture_id:31)
+        FactoryBot.create(:schedule, id: 4, variety_id: 4, prefecture_id: 31)
 
         visit schedules_path
         expect(page).to have_css('.schedule-card', count: 4)
@@ -104,11 +104,11 @@ RSpec.describe 'Schedules', type: :system, js: true do
       end
       it '都道府県指定で絞り込みができる' do
         FactoryBot.create(:variety, id: 2, name: 'さくらんぼ')
-        FactoryBot.create(:schedule, id: 2, variety_id: 2, prefecture_id:7)
+        FactoryBot.create(:schedule, id: 2, variety_id: 2, prefecture_id: 7)
         FactoryBot.create(:variety, id: 3, name: 'マリーゴールド')
-        FactoryBot.create(:schedule, id: 3, variety_id: 3, prefecture_id:13)
+        FactoryBot.create(:schedule, id: 3, variety_id: 3, prefecture_id: 13)
         FactoryBot.create(:variety, id: 4, name: 'ハナミズキ')
-        FactoryBot.create(:schedule, id: 4, variety_id: 4, prefecture_id:31)
+        FactoryBot.create(:schedule, id: 4, variety_id: 4, prefecture_id: 31)
 
         visit schedules_path
         expect(page).to have_css('.schedule-card', count: 4)
@@ -181,8 +181,8 @@ RSpec.describe 'Schedules', type: :system, js: true do
         click_link('とうだいのひまわり@沖縄県')
         click_link('削除')
         expect {
-          page.accept_confirm "本当に削除しますか?"
-          expect(page).to have_content "スケジュールを削除しました。"
+          page.accept_confirm '本当に削除しますか?'
+          expect(page).to have_content 'スケジュールを削除しました。'
         }.to change { Schedule.count }.by(-1)
         expect(page).not_to have_content 'あっちの花(試験中の畑)@三重県'
       end
