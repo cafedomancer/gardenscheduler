@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class SchedulesController < ApplicationController
   before_action :set_schedule, only: %i[show edit update destroy]
   before_action :check_owner, only: %i[edit update destroy]
@@ -9,9 +11,7 @@ class SchedulesController < ApplicationController
     @only_mine = false
 
     @schedules = Schedule.all.page(params[:page]).order('created_at DESC')
-    if user_signed_in?
-      @tasks = Task.where(user_id: current_user.id, done_at: [nil, '']).limit(10)
-    end
+    @tasks = Task.where(user_id: current_user.id, done_at: [nil, '']).limit(10) if user_signed_in?
 
     if params[:variety_id].present?
       @schedules = @schedules.where(variety_id: params[:variety_id])
@@ -27,8 +27,7 @@ class SchedulesController < ApplicationController
   end
 
   # GET /schedules/1 or /schedules/1.json
-  def show
-  end
+  def show; end
 
   # GET /schedules/new
   def new
@@ -52,14 +51,13 @@ class SchedulesController < ApplicationController
   end
 
   # GET /schedules/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /schedules or /schedules.json
   def create
     variety = Variety.find_by_id(schedule_params[:variety_id])
     if variety.nil?
-      variety = Variety.create({user_id: current_user.id, name: schedule_params[:variety_id]})
+      variety = Variety.create({ user_id: current_user.id, name: schedule_params[:variety_id] })
     end
 
     @schedule = Schedule.new(schedule_params)

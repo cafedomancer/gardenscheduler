@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class TasksController < ApplicationController
   before_action :set_task, only: %i[edit update]
   before_action :check_owner, only: %i[edit update destroy]
@@ -18,7 +19,7 @@ class TasksController < ApplicationController
 
     respond_to do |format|
       if @task.update(task_params)
-        format.html { redirect_to schedule_url(@task.schedule), notice: "作業を更新しました。" }
+        format.html { redirect_to schedule_url(@task.schedule), notice: '作業を更新しました。' }
         format.json { render :show, status: :ok, location: @task }
       else
         format.html { render :edit, status: :unprocessable_entity }
