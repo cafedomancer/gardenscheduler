@@ -9,9 +9,6 @@ RSpec.describe "Tasks", type: :request do
     @task = FactoryBot.create(:task, schedule_id: @schedule.id, user_id: user.id, name: 'PH1の酸性土壌を作る')
   end
 
-  # task PATCH      /tasks/:id(.:format)                                                                              tasks#update
-  #      PUT        /tasks/:id(.:format)                                                                              tasks#update
-
   describe "GET /tasks/:id/edit" do
     it "リクエストが成功すること" do
       sign_in user
