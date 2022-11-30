@@ -26,7 +26,7 @@ jobs:
     - name: Run RSpec
       shell: bash
       run:  |
-        docker-compose run selenium_chrome
+        # docker-compose run selenium_chrome
         docker-compose run web bundle exec rspec spec/models spec/requests
       env:
         RAILS_ENV: test
