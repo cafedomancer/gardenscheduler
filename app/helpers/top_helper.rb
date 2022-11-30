@@ -1,6 +1,6 @@
 # frozen_string_literal: true
-module TopHelper
 
+module TopHelper
   def variety_choices
     Variety.all.map { |variety| [variety.name, variety.id] }
   end
@@ -8,5 +8,4 @@ module TopHelper
   def prefecture_choices
     Prefecture.all.map { |prefecture| [prefecture.name, prefecture.id] }
   end
-
 end

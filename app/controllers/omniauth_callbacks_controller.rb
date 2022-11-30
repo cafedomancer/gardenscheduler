@@ -1,6 +1,9 @@
 # frozen_string_literal: true
+
 class OmniauthCallbacksController < Devise::OmniauthCallbacksController
-  def line; basic_action end
+  def line
+    basic_action
+  end
 
   private
 
