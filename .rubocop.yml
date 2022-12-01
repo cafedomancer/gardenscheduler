@@ -6,10 +6,12 @@ inherit_gem:
 Metrics/BlockLength:
   Exclude:
     - spec/**/*
+    - lib/**/*
 
 Metrics/ClassLength:
   Exclude:
     - spec/**/*
+    - lib/**/*
 
 AllCops:
   SuggestExtensions: false

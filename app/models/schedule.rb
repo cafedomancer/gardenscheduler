@@ -9,7 +9,7 @@ class Schedule < ApplicationRecord
   has_many :tasks, dependent: :destroy
   accepts_nested_attributes_for :tasks, allow_destroy: true
 
-  has_many :children, class_name: 'Schedule', foreign_key: 'schedule_id', dependent: :destroy
+  has_many :children, class_name: 'Schedule', dependent: :destroy
   belongs_to :parent, class_name: 'Schedule', foreign_key: 'schedule_id', optional: true
 
   validates :user_id, :variety_id, presence: true

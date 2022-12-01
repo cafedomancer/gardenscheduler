@@ -21,6 +21,6 @@ class Prefecture < ActiveHash::Base
   ]
 
   include ActiveHash::Associations
-  has_many :schedules
-  has_many :users
+  has_many :schedules, dependent: :restrict_with_exception
+  has_many :users, dependent: :restrict_with_exception
 end
