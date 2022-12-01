@@ -19,7 +19,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
                                               email:, name: @omniauth['info']['name'], password: Devise.friendly_token[0, 20])
       is_signup = true
     end
-    @profile.set_values(@omniauth)
+    @profile.auth_values(@omniauth)
     sign_in(:user, @profile)
     if is_signup == true
       flash[:notice] = 'サインアップしました'
