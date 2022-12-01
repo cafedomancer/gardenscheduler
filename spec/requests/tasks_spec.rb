@@ -7,7 +7,7 @@ RSpec.describe 'Tasks', type: :request do
   let(:user) { FactoryBot.create(:user, id: 1) }
   let(:variety) { FactoryBot.create(:variety, id: 1) }
   before do
-    @schedule = FactoryBot.create(:schedule, id: 1, user_id: user.id, variety_id: variety.id, prefecture_id:47)
+    @schedule = FactoryBot.create(:schedule, id: 1, user_id: user.id, variety_id: variety.id, prefecture_id: 47)
     @task = FactoryBot.create(:task, schedule_id: @schedule.id, user_id: user.id, name: 'PH1の酸性土壌を作る')
   end
 

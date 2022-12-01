@@ -180,10 +180,11 @@ RSpec.describe 'Schedules', type: :system, js: true do
         expect(page).to have_content 'とうだいのひまわり@沖縄県'
         click_link('とうだいのひまわり@沖縄県')
         click_link('削除')
-        expect {
+        expected = expect do
           page.accept_confirm '本当に削除しますか?'
           expect(page).to have_content 'スケジュールを削除しました。'
-        }.to change { Schedule.count }.by(-1)
+        end
+        expected.to change { Schedule.count }.by(-1)
         expect(page).not_to have_content 'あっちの花(試験中の畑)@三重県'
       end
     end

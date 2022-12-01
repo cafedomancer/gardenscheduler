@@ -7,7 +7,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable, :trackable,
          :omniauthable, omniauth_providers: %i[line] # for LINE LOGIN
 
-  has_many :varieties
+  has_many :varieties, dependent: :nullify
   has_many :schedules, dependent: :destroy
   has_many :tasks, dependent: :destroy
   extend ActiveHash::Associations::ActiveRecordExtensions

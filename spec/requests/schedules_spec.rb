@@ -64,9 +64,10 @@ RSpec.describe 'Schedules', type: :request do
   describe 'POST /schedules' do
     it 'リクエストが成功したら、スケジュールが1件保存されていること' do
       sign_in user
-      expect {
+      expected = expect do
         post schedules_path, params: { schedule: { name: 'バラ', user_id: user.id, variety_id: variety.id, prefecture_id: 47 } }
-      }.to change(Schedule, :count).by(1)
+      end
+      expected.to change(Schedule, :count).by(1)
     end
   end
 
@@ -91,17 +92,16 @@ RSpec.describe 'Schedules', type: :request do
   describe 'DELETE /schedules/1' do
     it 'リクエストが成功したら、スケジュールが1件削除されていること' do
       sign_in user
-      expect {
+      expected = expect do
         delete schedule_path(1)
-      }.to change( Schedule, :count).by(-1)
+      end
+      expected.to change(Schedule, :count).by(-1)
     end
   end
 
   describe 'DELETE /schedules/1' do
     it 'ゲストはログイン画面にリダイレクトされること' do
-      expect(
-        delete schedule_path(1)
-      ).to redirect_to root_path
+      expect(delete(schedule_path(1))).to redirect_to(root_path)
     end
   end
 end
