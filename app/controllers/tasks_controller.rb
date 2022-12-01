@@ -2,20 +2,18 @@
 
 class TasksController < ApplicationController
   before_action :set_task, only: %i[edit update]
-  before_action :check_owner, only: %i[edit update destroy]
+  before_action :check_owner, only: %i[edit update]
 
   def edit; end
 
   def update
-    if params[:status] == '0'
+    case params[:status]
+    when '0'
       @task.done_at = ''
-    elsif params[:status] == '1'
+    when '1'
       @task.done_at = DateTime.now
     end
-
-    if params[:done_image1_id]
-      @task.done_image1.purge
-    end
+    @task.done_image1.purge if params[:done_image1_id]
 
     respond_to do |format|
       if @task.update(task_params)
@@ -39,8 +37,6 @@ class TasksController < ApplicationController
   end
 
   def check_owner
-    if !user_signed_in? || current_user.id != @task.user_id
-      redirect_to new_user_session_path, notice: '作業記録を編集するためにログインしてください。'
-    end
+    redirect_to new_user_session_path, notice: '作業記録を編集するためにログインしてください。' if !user_signed_in? || current_user.id != @task.user_id
   end
 end
