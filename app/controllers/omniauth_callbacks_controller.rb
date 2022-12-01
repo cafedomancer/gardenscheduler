@@ -10,12 +10,13 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
   def basic_action
     @omniauth = request.env['omniauth.auth']
     is_signup = false
-    return unless @omniauth.present?
+    return if @omniauth.present?
 
     @profile = User.find_or_initialize_by(provider: @omniauth['provider'], uid: @omniauth['uid'])
     if @profile.email.blank?
-      email = @omniauth['info']['email'] ? @omniauth['info']['email'] : "#{@omniauth["uid"]}-#{@omniauth["provider"]}@example.com"
-      @profile = current_user || User.create!(provider: @omniauth['provider'], uid: @omniauth['uid'], email: email, name: @omniauth['info']['name'], password: Devise.friendly_token[0, 20])
+      email = @omniauth['info']['email'] || "#{@omniauth['uid']}-#{@omniauth['provider']}@example.com"
+      @profile = current_user || User.create!(provider: @omniauth['provider'], uid: @omniauth['uid'],
+                                              email:, name: @omniauth['info']['name'], password: Devise.friendly_token[0, 20])
       is_signup = true
     end
     @profile.set_values(@omniauth)
@@ -30,7 +31,6 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
   end
 
   def fake_email(uid, provider)
-    "#{auth.uid}-#{auth.provider}@example.com"
+    "#{uid}-#{provider}@example.com"
   end
-
 end
