@@ -20,9 +20,9 @@ class User < ApplicationRecord
 
   def set_values(omniauth)
     return if provider.to_s != omniauth['provider'].to_s || uid != omniauth['uid']
+    
     credentials = omniauth['credentials']
     info = omniauth['info']
-
     access_token = credentials['refresh_token']
     access_secret = credentials['secret']
     # credentials = credentials.to_json
@@ -32,7 +32,7 @@ class User < ApplicationRecord
 
   def set_values_by_raw_info(raw_info)
     self.raw_info = raw_info.to_json
-    self.save!
+    save!
   end
 
   def update_without_current_password(params, *options)

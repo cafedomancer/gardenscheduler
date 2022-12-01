@@ -21,9 +21,9 @@ class SchedulesController < ApplicationController
       @schedules = @schedules.where(prefecture_id: params[:prefecture_id])
       @prefecture_selected = params[:prefecture_id]
     end
-    if params[:only_mine]
-      @schedules = @schedules.where(user_id: current_user.id)
-    end
+    return unless params[:only_mine]
+
+    @schedules = @schedules.where(user_id: current_user.id)
   end
 
   # GET /schedules/1 or /schedules/1.json
@@ -31,17 +31,15 @@ class SchedulesController < ApplicationController
 
   # GET /schedules/new
   def new
-    if !user_signed_in?
-      redirect_to new_user_session_path, notice: 'ログインしてください。'
-    end
+    redirect_to new_user_session_path, notice: 'ログインしてください。' unless user_signed_in?
+
     @schedule = Schedule.new
     @schedule.prefecture_id = current_user&.prefecture_id
   end
 
   def copy
-    if !user_signed_in?
-      redirect_to new_user_session_path, notice: 'ログインしてください。'
-    end
+    redirect_to new_user_session_path, notice: 'ログインしてください。' unless user_signed_in?
+
     @original_schedule = Schedule.find(params[:id])
     @schedule = @original_schedule.deep_clone(include: [:tasks])
     @schedule.name = ''
@@ -55,10 +53,8 @@ class SchedulesController < ApplicationController
 
   # POST /schedules or /schedules.json
   def create
-    variety = Variety.find_by_id(schedule_params[:variety_id])
-    if variety.nil?
-      variety = Variety.create({ user_id: current_user.id, name: schedule_params[:variety_id] })
-    end
+    variety = Variety.find_by(id: schedule_params[:variety_id])
+    variety = Variety.create({ user_id: current_user.id, name: schedule_params[:variety_id] }) if variety.nil?
 
     @schedule = Schedule.new(schedule_params)
     @schedule.user = current_user
@@ -101,9 +97,7 @@ class SchedulesController < ApplicationController
   private
 
   def check_owner
-    if !user_signed_in? || current_user.id != @schedule.user_id
-      redirect_to root_path, notice: '権限が有りません。'
-    end
+    redirect_to root_path, notice: '権限が有りません。' if !user_signed_in? || current_user.id != @schedule.user_id
   end
 
   # Use callbacks to share common setup or constraints between actions.
@@ -114,6 +108,8 @@ class SchedulesController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def schedule_params
-    params.require(:schedule).permit(:name, :prefecture_id, :user_id, :variety_id, :schedule_id, tasks_attributes: %I(id date name plan_memo user_id _destroy)).merge(user_id: current_user.id)
+    params.require(:schedule)
+          .permit(:name, :prefecture_id, :user_id, :variety_id, :schedule_id, tasks_attributes: %I[id date name plan_memo user_id _destroy])
+          .merge(user_id: current_user.id)
   end
 end
