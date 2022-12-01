@@ -1,9 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-
 RSpec.describe 'Tasks', type: :request do
-
   let(:user) { FactoryBot.create(:user, id: 1) }
   let(:variety) { FactoryBot.create(:variety, id: 1) }
   before do

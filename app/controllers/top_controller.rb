@@ -19,10 +19,10 @@ class TopController < ApplicationController
       @schedules = @schedules.where(prefecture_id: params[:prefecture_id])
       @prefecture_selected = params[:prefecture_id]
     end
-    if params[:only_mine]
-      @schedules = @schedules.where(user_id: current_user.id)
-      @only_mine = 'true'
-    end
+    return unless params[:only_mine]
+
+    @schedules = @schedules.where(user_id: current_user.id)
+    @only_mine = 'true'
   end
 
   def tos; end
