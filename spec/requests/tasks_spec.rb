@@ -33,15 +33,6 @@ RSpec.describe 'Tasks', type: :request do
   end
 
   describe 'PUT /tasks/:id' do
-    it 'パラメータが不正な場合は変更内容が保存されないこと' do
-      sign_in user
-      put task_path(@task.id), params: { task: { user_id: nil } }
-      expect { @task.user_id }.not_to change( nil )
-# Parenthesize the param change { nil } to make sure that the block will be associated with the change method call.
-    end
-  end
-
-  describe 'PUT /tasks/:id' do
     it 'ゲストはログイン画面にリダイレクトされること' do
       put task_path(@task.id), params: { task: { plan_memo: 'やっぱりPH6で。' } }
       expect(response.status).to redirect_to new_user_session_path
