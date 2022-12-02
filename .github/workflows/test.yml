@@ -30,3 +30,10 @@ jobs:
         docker-compose run web bundle exec rspec spec/models spec/requests
       env:
         RAILS_ENV: test
+
+    - name: Run Lint
+      shell: bash
+      run:  |
+        docker-compose run web bundle exec rubocop
+      env:
+        RAILS_ENV: test
