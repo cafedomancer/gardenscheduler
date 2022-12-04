@@ -16,10 +16,14 @@ jobs:
     - name: Setup docker
       shell: bash
       run: |
-        docker-compose build --no-cache
-        docker-compose up db -d
-        docker-compose up web -d
-        docker-compose up selenium_chrome -d
+        docker-compose build
+        docker-compose up -d
+      env:
+        RAILS_ENV: test
+
+    - name: Create Database
+      shell: bash
+      run:  |
         docker-compose exec -T web rake db:create db:migrate RAILS_ENV=test
       env:
         RAILS_ENV: test
