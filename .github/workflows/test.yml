@@ -17,27 +17,23 @@ jobs:
       shell: bash
       run: |
         docker-compose build
-        docker-compose up -d
-      env:
-        RAILS_ENV: test
-
-    - name: Create Database
-      shell: bash
-      run:  |
-        docker-compose exec -T web rake db:create db:migrate RAILS_ENV=test
+        docker-compose run web yarn install --check-files
+        docker-compose run web yarn upgrade
+        docker-compose run web rake db:create db:migrate
       env:
         RAILS_ENV: test
 
     - name: Run RSpec
       shell: bash
       run:  |
-        docker-compose exec -T web bundle exec rspec
+        docker-compose run -d selenium_chrome
+        docker-compose run web bundle exec rspec spec/models spec/requests
       env:
         RAILS_ENV: test
 
     - name: Run Lint
       shell: bash
       run:  |
-        docker-compose exec -T web bundle exec rubocop
+        docker-compose run web bundle exec rubocop
       env:
         RAILS_ENV: test
