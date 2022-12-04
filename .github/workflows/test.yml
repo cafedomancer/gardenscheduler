@@ -17,20 +17,20 @@ jobs:
       shell: bash
       run: |
         docker-compose up --build -d
-        docker-compose exec web rake db:create db:migrate RAILS_ENV=test
+        docker-compose exec -T web rake db:create db:migrate RAILS_ENV=test
       env:
         RAILS_ENV: test
 
     - name: Run RSpec
       shell: bash
       run:  |
-        docker-compose exec web bundle exec rspec
+        docker-compose exec -T web bundle exec rspec
       env:
         RAILS_ENV: test
 
     - name: Run Lint
       shell: bash
       run:  |
-        docker-compose exec web bundle exec rubocop
+        docker-compose exec -T web bundle exec rubocop
       env:
         RAILS_ENV: test
