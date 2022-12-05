@@ -21,6 +21,7 @@ services:
     stdin_open: true
     depends_on:
       - db
+      - selenium_chrome
     ports:
       - '3000:3000'
     volumes:
