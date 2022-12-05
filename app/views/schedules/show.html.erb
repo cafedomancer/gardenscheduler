@@ -1,3 +1,6 @@
+<% provide(:title, "#{@schedule.prefecture&.name}の#{@schedule.variety.name}栽培スケジュール | ") %>
+<% provide(:description, "GardenSchedulerに登録されている#{@schedule.prefecture&.name}の#{@schedule.variety.name}栽培スケジュール#{@task_name}詳細情報です。") %>
+
 <div class="d-flex mb-3">
   <div class="me-auto">
     <% if current_user&.id == @schedule.user_id %>

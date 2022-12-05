@@ -27,7 +27,15 @@ class SchedulesController < ApplicationController
   end
 
   # GET /schedules/1 or /schedules/1.json
-  def show; end
+  def show
+    @task_name = ''
+    @tasks.each do |task|
+      @task_name += ', ' if @task_name.present?
+      @task_name += task.name
+    end
+
+    @task_name = "(#{@task_name})" if @task_name.present?
+  end
 
   # GET /schedules/new
   def new

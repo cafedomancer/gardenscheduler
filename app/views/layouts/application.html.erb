@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html class="h-100">
   <head>
-    <title>Garden Scheduler</title>
+    <title><%= yield(:title) %>Garden Scheduler</title>
+    <meta name="description" content="<%= yield(:description) %>" />
+    <meta name="keywords" content="Garden Scheduler, 家庭菜園, ガーデニング, 土作り, 肥料, 収穫" />
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
